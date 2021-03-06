@@ -1,0 +1,27 @@
+grumphp:
+  process_timeout: 180
+  git_hook_variables:
+    EXEC_GRUMPHP_COMMAND: "ddev exec"
+  tasks:
+    phpcs: ~
+    phpcpd:
+      exclude: ["vendor", "storage", "node_modules", "tests"]
+    phpstan: ~
+    xmllint: ~
+    yamllint: ~
+    paratest: ~
+    composer: ~
+    git_blacklist:
+      keywords:
+        - "dd("
+        - "dump("
+        - "die("
+        - "var_dump("
+        - "exit;"
+      whitelist_patterns:
+        - /^storage\/(.*)/
+        - /^vendor\/(.*)/
+        - /^node_modules\/(.*)/
+    shell:
+      scripts:
+        - ["-c", "./vendor/bin/tlint"]

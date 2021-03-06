@@ -1,0 +1,5 @@
+{
+    "preset": "laravel",
+    "disabled": ["NoInlineVarDocs", "SpaceAfterSoleNotOperator"],
+    "excluded": ["tests/"]
+}
