@@ -1,5 +1,7 @@
 @extends('layouts/default')
 
 @section('content')
-{{ $room->id }}
+<div id="room">
+    <room :room="{{ $room->toJson() }}"></room>
+</div>
 @endsection
