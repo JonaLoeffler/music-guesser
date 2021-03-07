@@ -1,8 +1,14 @@
 @extends('layouts/default')
 
 @section('content')
-<form action="{{ route('rooms.store') }}" method="post">
-    @csrf
-    <button class="button" type="submit">{{ __('Create new room') }}</button>
-</form>
+<div class="container mx-auto flex justify-center">
+    <form action="{{ route('rooms.store') }}" method="post">
+        @csrf
+        <button type="submit"
+            class="btn btn-primary p-4 text-bold"
+            aria-expanded="false">
+            {{ __('Create new room') }}
+        </button>
+    </form>
+</div>
 @endsection

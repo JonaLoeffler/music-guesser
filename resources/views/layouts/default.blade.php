@@ -9,7 +9,7 @@
     <title>{{ config('app.name') }}</title>
 </head>
 
-<body class="min-h-screen bg-gray-100">
+<body class="min-h-screen bg-gray-100 my-5">
     @yield('content')
 </body>
 
