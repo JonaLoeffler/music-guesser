@@ -3,6 +3,6 @@
 @section('content')
 <form action="{{ route('rooms.store') }}" method="post">
     @csrf
-    <button type="submit">{{ __('Create new room') }}</button>
+    <button class="button" type="submit">{{ __('Create new room') }}</button>
 </form>
 @endsection
