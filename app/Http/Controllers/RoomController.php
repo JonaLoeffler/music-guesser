@@ -3,29 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store()
     {
-        return response()->make('todo');
+        return redirect()->route('rooms.show', ['room' => Room::create()]);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Room  $room
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(Room $room)
     {
-        return response()->make('todo');
+        return view('room', ['room' => $room]);
     }
 }
