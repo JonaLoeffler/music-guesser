@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -20,10 +22,22 @@ class RoomController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Room  $room
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
-    public function show(Room $room)
+    public function show(Request $request, Room $room)
     {
-        return view('room', ['room' => $room]);
+        $player = $request->user();
+
+        // If no player is authenticated or the room does not contain the player,
+        // we will create a new player and log them in.
+        if ($player === null || !$room->players->contains($player)) {
+            Auth::login(
+                $player  = $room->players()->create(),
+                true,
+            );
+        }
+
+        return response()
+            ->view('room', ['room' => $room]);
     }
 }
