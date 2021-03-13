@@ -2,22 +2,30 @@
 
 namespace App\Models;
 
+use App\Models\Traits\IdentifiedByUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Room extends Model
 {
-    use HasFactory;
+    use HasFactory, IdentifiedByUuid;
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
     public $incrementing = false;
 
+    /**
+     * The "type" of the primary key ID.
+     *
+     * @var string
+     */
     protected $keyType = 'string';
 
-    protected static function booted()
+    public function players()
     {
-        static::creating(function (Room $room) {
-            $room->id = (string) Str::uuid();
-        });
+        return $this->hasMany(Player::class);
     }
 }

@@ -16,7 +16,10 @@ class CreatePlayersTable extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name');
+            $table->uuid('room_id');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+
+            $table->string('name')->nullable();
 
             $table->timestamps();
         });
