@@ -8,9 +8,34 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class VisitingRoomsLogsInPlayers extends TestCase
+class RoomTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function testCreateRoomButtonExists()
+    {
+        $this->get('/')
+            ->assertSee('Create new room')
+            ->assertStatus(200);
+    }
+
+    public function testRoomCanBeCreated()
+    {
+        $response = $this->post('/rooms')
+            ->assertStatus(302);
+
+        $room = Room::first();
+
+        $response->assertRedirect("/rooms/{$room->id}");
+    }
+
+    public function testRoomCanBeVisited()
+    {
+        $room = Room::factory()->create();
+
+        $this->get("/rooms/{$room->id}")
+            ->assertStatus(200);
+    }
 
     public function testVisitingARoomLogsInPlayers()
     {
@@ -25,7 +50,7 @@ class VisitingRoomsLogsInPlayers extends TestCase
     public function testRoomCanBeVisitedAsExistingPlayer()
     {
         $room = Room::factory()->create();
-        $player = Player::factory()->create();
+        $player = Player::factory()->for($room)->create();
 
         $this->actingAs($player)
             ->get("/rooms/{$room->id}")
