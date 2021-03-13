@@ -6,6 +6,11 @@ use App\Models\Traits\IdentifiedByUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Room
+ *
+ * @property \Illuminate\Database\Eloquent\Collection $players
+ */
 class Room extends Model
 {
     use HasFactory, IdentifiedByUuid;

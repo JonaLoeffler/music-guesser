@@ -6,8 +6,6 @@ use Illuminate\Support\Str;
 
 trait IdentifiedByUuid
 {
-
-
     /**
      * Perform any actions required after the model boots.
      *
