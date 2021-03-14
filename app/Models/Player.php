@@ -2,28 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Traits\IdentifiedByUuid;
+use App\Events\PlayerUpdated;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model implements Authenticatable
 {
-    use HasFactory, IdentifiedByUuid;
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * The "type" of the primary key ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'string';
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -33,6 +18,18 @@ class Player extends Model implements Authenticatable
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        self::updated(fn (self $player) => event(new PlayerUpdated($player)));
+
+        parent::booted();
+    }
 
     public function room()
     {

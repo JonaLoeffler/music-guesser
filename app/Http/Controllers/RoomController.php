@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use Faker\Generator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,12 +33,12 @@ class RoomController extends Controller
         // we will create a new player and log them in.
         if ($player === null || !$room->players->contains($player)) {
             Auth::login(
-                $player  = $room->players()->create(),
+                $player = $room->players()->create(['name' => app(Generator::class)->userName]),
                 true,
             );
         }
 
         return response()
-            ->view('room', ['room' => $room]);
+            ->view('room', ['room' => $room, 'player' => $player]);
     }
 }

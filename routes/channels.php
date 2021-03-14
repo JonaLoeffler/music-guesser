@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Resources\Player as PlayerResource;
+use App\Models\Player;
 use App\Models\Room;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -14,8 +16,8 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('room.{room}', function ($user, Room $room) {
-    if ($room->players->contains($user)) {
-        return ['id' => $user->id, 'name' => $user->name];
+Broadcast::channel('room.{room}', function (Player $player, Room $room) {
+    if ($room->players->contains($player)) {
+        return (new PlayerResource($player))->resolve();
     }
 });

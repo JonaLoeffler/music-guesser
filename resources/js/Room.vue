@@ -2,29 +2,32 @@
   <div class="container mx-auto">
     <h2 class="text-lg font-bold">Hello World from Vue</h2>
     <p>You're in room {{ room.id }}</p>
+
+    <player-details :initial="player" />
+
+    <player-list :room="room" />
   </div>
 </template>
 
 <script>
+import PlayerList from "./components/PlayerList.vue";
+import PlayerDetails from "./components/PlayerDetails.vue";
+
 export default {
   name: "App",
+  components: {
+    PlayerList,
+    PlayerDetails,
+  },
   props: {
     room: {
       type: Object,
       required: true,
     },
-  },
-  mounted() {
-    Echo.join(`room.${this.room.id}`)
-      .here((users) => {
-        console.table(users);
-      })
-      .joining((user) => {
-        console.log(user);
-      })
-      .leaving((user) => {
-        console.log(user);
-      });
+    player: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>
