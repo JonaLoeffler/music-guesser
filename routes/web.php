@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,7 @@ Route::get('/', function () {
 });
 
 Route::resource('rooms', RoomController::class)->only('store', 'show');
+
+Route::middleware('response.json')->group(function () {
+    Route::apiResource('players', PlayerController::class)->only('update');
+});

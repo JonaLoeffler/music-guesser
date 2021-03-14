@@ -25,6 +25,15 @@ class Player extends Model implements Authenticatable
      */
     protected $keyType = 'string';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+    ];
+
     public function room()
     {
         return $this->belongsTo(Room::class);
