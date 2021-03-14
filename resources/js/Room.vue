@@ -6,13 +6,25 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   name: "App",
   props: {
     room: {
       type: Object,
       required: true,
     },
+  },
+  mounted() {
+    Echo.join(`room.${this.room.id}`)
+      .here((users) => {
+        console.table(users);
+      })
+      .joining((user) => {
+        console.log(user);
+      })
+      .leaving((user) => {
+        console.log(user);
+      });
   },
 };
 </script>
