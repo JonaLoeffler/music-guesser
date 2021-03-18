@@ -9,9 +9,9 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <script src="/js/manifest.js" async></script>
-    <script src="/js/vendor.js" async></script>
-    <script src="/js/app.js" async></script>
+    <script src="{{ mix('/js/manifest.js') }}" async></script>
+    <script src="{{ mix('/js/vendor.js') }}" async></script>
+    @stack('scripts')
 
     <title>{{ config('app.name') }}</title>
 </head>

@@ -19,5 +19,8 @@ mix.ts('resources/js/app.ts', 'public/js')
         processCssUrls: false,
         postCss: [tailwindcss('./tailwind.config.js')],
     }).vue()
-    .version()
     .extract(['vue']);
+
+if (mix.inProduction()) {
+    mix.version()
+}
