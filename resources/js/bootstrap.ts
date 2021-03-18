@@ -1,4 +1,6 @@
-window._ = require('lodash');
+declare global {
+    interface Window { Echo: any, Pusher: any, axios: any }
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

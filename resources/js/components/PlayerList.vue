@@ -4,11 +4,16 @@
   </ul>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
+import Room from "../interfaces/Room";
+import Player from "../interfaces/Player";
+
+export default defineComponent({
+  name: "PlayerList",
   props: {
     room: {
-      type: Object,
+      type: Object as PropType<Room>,
       required: true,
     },
   },
@@ -18,28 +23,29 @@ export default {
     };
   },
   computed: {
-    sorted: function () {
+    sorted: function (): Player[] {
       return this.players.sort(
-        (a, b) => new Date(a.created_at) - new Date(b.created_at)
+        (a: Player, b: Player) =>
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
       );
     },
   },
   mounted() {
-    Echo.join(`room.${this.room.id}`)
-      .here((players) => {
+    window.Echo.join(`room.${this.room.id}`)
+      .here((players: Player[]) => {
         this.players = players;
       })
-      .joining((player) => {
+      .joining((player: Player) => {
         this.players.push(player);
       })
-      .leaving((player) => {
+      .leaving((player: Player) => {
         this.players = this.players.filter((p) => p.id !== player.id);
       })
-      .listen("PlayerUpdated", (player) => {
+      .listen("PlayerUpdated", (player: Player) => {
         this.players = this.players.filter((p) => p.id !== player.id);
 
         this.players.push(player);
       });
   },
-};
+});
 </script>

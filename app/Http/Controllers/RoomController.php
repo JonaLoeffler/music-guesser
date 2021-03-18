@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Player;
+use App\Http\Resources\Room as ResourcesRoom;
 use App\Models\Room;
 use Faker\Generator;
 use Illuminate\Http\Request;
@@ -39,6 +41,12 @@ class RoomController extends Controller
         }
 
         return response()
-            ->view('room', ['room' => $room, 'player' => $player]);
+            ->view(
+                'room',
+                [
+                    'room' => (new ResourcesRoom($room))->toJson(),
+                    'player' => (new Player($player))->toJson(),
+                ],
+            );
     }
 }

@@ -12,11 +12,15 @@
   </form>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Player from "../interfaces/Player";
+import { defineComponent, PropType } from "vue";
+import { AxiosResponse, AxiosError } from "axios";
+
+export default defineComponent({
   props: {
     initial: {
-      type: Object,
+      type: Object as PropType<Player>,
       required: true,
     },
   },
@@ -27,11 +31,11 @@ export default {
   },
   methods: {
     submit() {
-      axios
+      window.axios
         .patch(`/players/${this.player.id}`, this.player)
-        .then((response) => this.player = response.data.data)
-        .catch((error) => console.log(error));
+        .then((response: AxiosResponse) => (this.player = response.data.data))
+        .catch((error: AxiosError) => console.log(error));
     },
   },
-};
+});
 </script>

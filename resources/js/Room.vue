@@ -9,25 +9,28 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
+import Room from "./interfaces/Room";
+import Player from "./interfaces/Player";
 import PlayerList from "./components/PlayerList.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
 
-export default {
-  name: "App",
+export default defineComponent({
+  name: "Room",
   components: {
     PlayerList,
     PlayerDetails,
   },
   props: {
     room: {
-      type: Object,
+      type: Object as PropType<Room>,
       required: true,
     },
     player: {
-      type: Object,
+      type: Object as PropType<Player>,
       required: true,
     },
   },
-};
+});
 </script>
