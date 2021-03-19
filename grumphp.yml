@@ -3,6 +3,12 @@ grumphp:
   git_hook_variables:
     EXEC_GRUMPHP_COMMAND: "ddev exec"
   tasks:
+    npm_script:
+      script: "development"
+      triggered_by: [js, jsx, coffee, ts, less, sass, scss]
+      working_directory: "./"
+      is_run_task: true
+      silent: false
     phpcs: ~
     phpcpd:
       exclude: ["vendor", "storage", "node_modules", "tests"]
