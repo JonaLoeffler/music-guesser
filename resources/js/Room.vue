@@ -1,11 +1,18 @@
 <template>
-  <div class="container mx-auto">
-    <h2 class="text-lg font-bold">Hello World from Vue</h2>
-    <p>You're in room {{ room.id }}</p>
+  <div class="container mx-auto min-h-screen">
+    <div class="grid grid-cols-2 gap-4 my-4">
+      <h2>Hello World from Vue</h2>
+      <player-details :initial="player" />
+    </div>
 
-    <player-details :initial="player" />
-
-    <player-list :room="room" />
+    <div class="grid grid-cols-3 gap-4 h-5/6">
+      <div class="bg-white rounded-md p-1">
+        <h3>Players</h3>
+        <player-list :room="room" />
+      </div>
+      <div class="bg-white rounded-md p-1"><h3>Main View</h3></div>
+      <div class="bg-white rounded-md p-1"><h3>Timeline</h3></div>
+    </div>
   </div>
 </template>
 
