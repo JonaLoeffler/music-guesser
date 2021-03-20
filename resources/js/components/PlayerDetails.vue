@@ -5,7 +5,6 @@
       name="player.name"
       id="input-player-name"
       v-model="player.name"
-      class="mr-1 p-1 rounded"
     />
     <button type="submit" @click="submit" class="btn btn-primary p-1">
       Speichern

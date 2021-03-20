@@ -1,0 +1,8 @@
+@layer components {
+    .card {
+        @apply bg-white rounded-md p-1;
+    }
+    input {
+        @apply mr-1 p-1 rounded;
+    }
+}

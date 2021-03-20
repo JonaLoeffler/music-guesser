@@ -10,7 +10,10 @@
         <h3>Players</h3>
         <player-list :room="room" />
       </div>
-      <div class="card col-span-3"><h3>Main View</h3></div>
+      <div class="card col-span-3">
+        <h3>Main View</h3>
+        <guess-form />
+      </div>
       <div class="card"><h3>Timeline</h3></div>
     </div>
   </div>
@@ -20,12 +23,14 @@
 import { defineComponent, PropType } from "vue";
 import Room from "./interfaces/Room";
 import Player from "./interfaces/Player";
+import GuessForm from "./components/GuessForm.vue";
 import PlayerList from "./components/PlayerList.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
 
 export default defineComponent({
   name: "Room",
   components: {
+    GuessForm,
     PlayerList,
     PlayerDetails,
   },
