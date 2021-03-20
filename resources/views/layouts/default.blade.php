@@ -9,14 +9,14 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <script src="{{ mix('/js/manifest.js') }}" async></script>
-    <script src="{{ mix('/js/vendor.js') }}" async></script>
+    <script src="{{ mix('/js/manifest.js') }}"></script>
+    <script src="{{ mix('/js/vendor.js') }}"></script>
     @stack('scripts')
 
     <title>{{ config('app.name') }}</title>
 </head>
 
-<body class="min-h-screen bg-gray-100">
+<body class="bg-gray-100">
     @yield('content')
 </body>
 

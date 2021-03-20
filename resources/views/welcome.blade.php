@@ -1,7 +1,7 @@
 @extends('layouts/default')
 
 @section('content')
-<div class="container mx-auto flex justify-center">
+<div class="container mx-auto flex justify-center pt-5">
     <form action="{{ route('rooms.store') }}" method="post">
         @csrf
         <button type="submit"
