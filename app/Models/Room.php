@@ -17,4 +17,9 @@ class Room extends Model
     {
         return $this->hasMany(Player::class);
     }
+
+    public function rounds()
+    {
+        return $this->hasMany(Round::class);
+    }
 }
