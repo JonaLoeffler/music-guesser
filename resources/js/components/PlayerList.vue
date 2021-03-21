@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import Room from "../interfaces/Room";
-import Player from "../interfaces/Player";
+import Room from "../classes/Room";
+import Player from "../classes/Player";
 
 export default defineComponent({
   name: "PlayerList",

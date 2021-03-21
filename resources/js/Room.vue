@@ -12,6 +12,11 @@
       </div>
       <div class="card col-span-3">
         <h3>Main View</h3>
+        <spotify-login v-if="!this.user.isAuthorizedWithSpotify()" />
+        <spotify
+          v-if="this.user.isAuthorizedWithSpotify()"
+          :access_token="this.user.spotify_access_token"
+        />
         <guess-form />
       </div>
       <div class="card"><h3>Timeline</h3></div>
@@ -21,8 +26,11 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import Room from "./interfaces/Room";
-import Player from "./interfaces/Player";
+import Room from "./classes/Room";
+import Player from "./classes/Player";
+
+import Spotify from "./components/Spotify.vue";
+import SpotifyLogin from "./components/SpotifyLogin.vue";
 import GuessForm from "./components/GuessForm.vue";
 import PlayerList from "./components/PlayerList.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
@@ -30,9 +38,22 @@ import PlayerDetails from "./components/PlayerDetails.vue";
 export default defineComponent({
   name: "Room",
   components: {
+    Spotify,
+    SpotifyLogin,
     GuessForm,
     PlayerList,
     PlayerDetails,
+  },
+  data() {
+    return {
+      user: new Player(
+        this.player.id,
+        this.player.name,
+        this.player.created_at,
+        this.player.updated_at,
+        this.player.spotify_access_token
+      ),
+    };
   },
   props: {
     room: {

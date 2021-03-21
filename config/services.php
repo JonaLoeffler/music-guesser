@@ -14,6 +14,13 @@ return [
     |
     */
 
+    'spotify' => [
+        'client' => [
+            'id' => env('SPOTIFY_CLIENT_ID'),
+            'secret' => env('SPOTIFY_CLIENT_SECRET'),
+        ],
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

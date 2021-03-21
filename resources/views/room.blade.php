@@ -7,4 +7,5 @@
 
 @push('scripts')
 <script src="{{ mix('/js/app.js') }}" async></script>
+<script src="https://sdk.scdn.co/spotify-player.js" async></script>
 @endpush
