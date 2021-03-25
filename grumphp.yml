@@ -5,7 +5,7 @@ grumphp:
   tasks:
     npm_script:
       script: "development"
-      triggered_by: [js, jsx, coffee, ts, less, sass, scss]
+      triggered_by: [js, jsx, coffee, ts, less, sass, scss, vue]
       working_directory: "./"
       is_run_task: true
       silent: false
