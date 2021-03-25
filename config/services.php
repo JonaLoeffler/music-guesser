@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 return [
 
     /*
@@ -15,6 +17,10 @@ return [
     */
 
     'spotify' => [
+        'url' => Str::of(env('SPOTIFY_API_URL'))->finish('/'),
+        'paths' => [
+            'token' => 'token',
+        ],
         'client' => [
             'id' => env('SPOTIFY_CLIENT_ID'),
             'secret' => env('SPOTIFY_CLIENT_SECRET'),

@@ -44,6 +44,8 @@ class RoomTest extends TestCase
         $this->get("/rooms/{$room->id}")
             ->assertOk();
 
+        $this->assertAuthenticated();
+
         $this->assertDatabaseCount('players', 1);
     }
 
@@ -55,6 +57,8 @@ class RoomTest extends TestCase
         $this->actingAs($player)
             ->get("/rooms/{$room->id}")
             ->assertOk();
+
+        $this->assertAuthenticated();
 
         $this->assertDatabaseCount('players', 1);
     }

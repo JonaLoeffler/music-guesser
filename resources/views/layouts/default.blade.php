@@ -17,6 +17,12 @@
 </head>
 
 <body class="bg-gray-100">
+    @if (session()->has('error'))
+        <div class="bg-red-300 font-bold text-red-700 text-center p-1">
+            {{ session('error') }}
+        </div>
+    @endif
+
     @yield('content')
 </body>
 
