@@ -1,5 +1,7 @@
 <template>
-  <div>Spotify</div>
+  <div class="flex h-80">
+    <div class="m-auto">Spotify</div>
+  </div>
 </template>
 
 <script lang="ts">

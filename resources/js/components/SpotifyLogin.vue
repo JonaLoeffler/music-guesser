@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <button @click="login">Login</button>
+  <div class="flex h-80">
+    <button class="btn btn-primary m-auto" @click="login">Login</button>
   </div>
 </template>
 
