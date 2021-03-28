@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## #ddev-generated
+## Description: Provisioning of the web container
+## Usage: provision
+## Example: "ddev provision"
+
+DOCROOT=/var/www/html
+
+cd $DOCROOT && composer install
+cd $DOCROOT && npm install
+cd $DOCROOT && npm run prod
+cd $DOCROOT && php artisan storage:link
+cd $DOCROOT && php artisan migrate:fresh
+cd $DOCROOT && php artisan db:seed
