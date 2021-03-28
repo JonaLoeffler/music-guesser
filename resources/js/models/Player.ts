@@ -1,4 +1,4 @@
-import PlayerInterface from '../interfaces/Player'
+import PlayerInterface from './interfaces/Player'
 
 export default class Player implements PlayerInterface {
     constructor(

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import Player from "../classes/Player";
+import Player from "../models/Player";
 import { defineComponent, PropType } from "vue";
 import { AxiosResponse, AxiosError } from "axios";
 

@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+import config from "../config";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -12,9 +13,9 @@ export default defineComponent({
   methods: {
     login() {
       const url =
-        "https://accounts.spotify.com/authorize?" +
+        config.spotify.authorize_url +
         new URLSearchParams({
-          client_id: "dda4c90684cd45dc85329402cbefbcd8",
+          client_id: config.spotify.client_id,
           response_type: "code",
           redirect_uri: `${window.location.origin}/callback/spotify`,
           state: window.location.pathname,
@@ -22,8 +23,6 @@ export default defineComponent({
             " "
           ),
         });
-
-      console.log(url);
 
       window.location.replace(url);
     },
