@@ -1,17 +1,31 @@
 <template>
   <div class="flex h-80">
-    <div class="m-auto">Spotify</div>
+    <div class="m-auto">
+      Spotify
+      <button @click="play">Play</button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import SpotifyApi from "../lib/spotify";
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "Spotify",
   props: {
     access_token: {
       required: true,
       type: String,
+    },
+  },
+  methods: {
+    play() {
+      SpotifyApi.play({
+        playerInstance: window.Player,
+        spotify_uri: "spotify:track:7xGfFoTpQ2E7fRF5lN10tr",
+      });
+      setTimeout(() => window.Player.pause(), 2000);
     },
   },
   mounted() {
@@ -46,6 +60,7 @@ export default defineComponent({
 
       // Ready
       player.addListener("ready", ({ device_id }: any) => {
+        player._options.device_id = device_id;
         console.log("Ready with Device ID", device_id);
       });
 
@@ -56,6 +71,8 @@ export default defineComponent({
 
       // Connect to the player!
       player.connect();
+
+      window.Player = player;
     };
   },
 });

@@ -1,5 +1,5 @@
 declare global {
-    interface Window { Echo: any, Pusher: any, axios: any }
+    interface Window { Echo: any, Pusher: any, axios: any, Player?: any }
 }
 
 /**
