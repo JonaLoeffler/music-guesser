@@ -16,6 +16,8 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('spotify_playlist_uri')->default('spotify:playlist:11Uy8vjSUtc1W9rHsLTct2');
+
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static \Illuminate\Support\Collection authenticate(string $code)
+ * @method static \Illuminate\Support\Collection playlist(string $uri)
  *
  * @see \App\Services\Spotify\SpotifyManager
  */

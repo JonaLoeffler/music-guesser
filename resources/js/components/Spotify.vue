@@ -9,7 +9,9 @@
 
 <script lang="ts">
 import SpotifyApi from "../lib/spotify";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
+import Room from "../models/Room";
+import Round from "../models/Round";
 
 export default defineComponent({
   name: "Spotify",
@@ -18,14 +20,18 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    room: {
+      required: true,
+      type: Object as PropType<Room>,
+    },
   },
   methods: {
-    play() {
+    play(uri: string) {
       SpotifyApi.play({
         playerInstance: window.Player,
-        spotify_uri: "spotify:track:7xGfFoTpQ2E7fRF5lN10tr",
+        spotify_uri: uri,
       });
-      setTimeout(() => window.Player.pause(), 2000);
+      setTimeout(() => window.Player.pause(), 4000);
     },
   },
   mounted() {
@@ -74,6 +80,16 @@ export default defineComponent({
 
       window.Player = player;
     };
+
+    window.Echo.join(`room.${this.room.id}`).listen(
+      "PlayTrack",
+      (round: Round) => {
+        setTimeout(
+          () => this.play(round.spotify_track_uri),
+          new Date(round.play_at).getTime() - Date.now()
+        );
+      }
+    );
   },
 });
 </script>

@@ -20,6 +20,7 @@ return [
         'url' => Str::of(env('SPOTIFY_API_URL'))->finish('/'),
         'paths' => [
             'token' => 'token',
+            'playlists' => 'playlists',
         ],
         'client' => [
             'id' => env('SPOTIFY_CLIENT_ID'),

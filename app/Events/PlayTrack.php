@@ -2,25 +2,26 @@
 
 namespace App\Events;
 
-use App\Http\Resources\Player as PlayerResource;
-use App\Models\Player;
+use App\Http\Resources\Round as RoundResource;
+use App\Models\Round;
+
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PlayerUpdated implements ShouldBroadcastNow
+class PlayTrack implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      *
-     * @param  \App\Models\Player  $player
+     * @param  \App\Models\Round  $round
      * @return void
      */
-    public function __construct(public Player $player)
+    public function __construct(public Round $round)
     {
         //
     }
@@ -32,7 +33,7 @@ class PlayerUpdated implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PresenceChannel("room.{$this->player->room_id}");
+        return new PresenceChannel("room.{$this->round->room->id}");
     }
 
     /**
@@ -42,6 +43,6 @@ class PlayerUpdated implements ShouldBroadcastNow
      */
     public function broadcastWith()
     {
-        return (new PlayerResource($this->player))->resolve();
+        return (new RoundResource($this->round))->resolve();
     }
 }

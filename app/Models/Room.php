@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\Room
  *
+ * @property \App\Models\Player $creator
  * @property \Illuminate\Database\Eloquent\Collection $players
  */
 class Room extends Model

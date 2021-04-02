@@ -12,14 +12,24 @@
       </div>
       <div class="card col-span-3">
         <h3>Main View</h3>
-        <spotify-login v-if="!this.user.isAuthorizedWithSpotify()" />
+        <spotify-login v-if="!user.isAuthorizedWithSpotify()" />
         <spotify
-          v-if="this.user.isAuthorizedWithSpotify()"
-          :access_token="this.user.spotify_access_token"
+          v-if="user.isAuthorizedWithSpotify()"
+          :access_token="user.spotify_access_token"
+          :room="room"
         />
         <guess-form />
       </div>
-      <div class="card"><h3>Timeline</h3></div>
+      <div class="card">
+        <h3>Timeline</h3>
+        <button
+          class="btn btn-primary"
+          @click="start"
+          v-if="user.isAuthorizedWithSpotify() && user.isCreator()"
+        >
+          Start round
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +44,7 @@ import SpotifyLogin from "./components/SpotifyLogin.vue";
 import GuessForm from "./components/GuessForm.vue";
 import PlayerList from "./components/PlayerList.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
+import { AxiosError, AxiosResponse } from "axios";
 
 export default defineComponent({
   name: "Room",
@@ -49,6 +60,7 @@ export default defineComponent({
       user: new Player(
         this.player.id,
         this.player.name,
+        this.player.is_creator,
         this.player.created_at,
         this.player.updated_at,
         this.player.spotify_access_token
@@ -63,6 +75,14 @@ export default defineComponent({
     player: {
       type: Object as PropType<Player>,
       required: true,
+    },
+  },
+  methods: {
+    start() {
+      window.axios
+        .post(`/rooms/${this.room.id}/rounds`)
+        .then((response: AxiosResponse) => console.log(response))
+        .catch((error: AxiosError) => console.log(error));
     },
   },
 });

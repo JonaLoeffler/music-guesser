@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Player extends JsonResource
+class Round extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,9 @@ class Player extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'is_creator' => $this->is_creator,
-            'spotify_access_token' => $this->when($this->id === $request->user()->id, $this->spotify_access_token),
+            'number' => $this->number,
+            'spotify_track_uri' => $this->spotify_track_uri,
+            'play_at' => $this->created_at->addSeconds(10),
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
         ];
