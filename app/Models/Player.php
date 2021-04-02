@@ -17,6 +17,16 @@ class Player extends Model implements Authenticatable
      */
     protected $fillable = [
         'name',
+        'is_creator',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_creator' => 'bool',
     ];
 
     /**

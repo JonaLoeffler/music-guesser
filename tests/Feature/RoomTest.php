@@ -62,4 +62,29 @@ class RoomTest extends TestCase
 
         $this->assertDatabaseCount('players', 1);
     }
+
+    public function testFirstPlayerInRoomIsTheCreator()
+    {
+        $room = Room::factory()->create();
+
+        $this->get("/rooms/{$room->id}")
+            ->assertOk();
+
+        $this->assertTrue($room->players->first()->is_creator);
+        $this->assertTrue($room->players->first()->is($room->creator));
+    }
+
+    public function testSecondPlayerInRoomIsNotCreator()
+    {
+
+        $room = Room::factory()->create();
+        Player::factory()->for($room)->create();
+
+        // visit as second player.
+        $this->get("/rooms/{$room->id}")
+            ->assertOk();
+
+        $this->assertCount(2, $room->players);
+        $this->assertFalse($room->players()->latest()->first()->is_creator);
+    }
 }

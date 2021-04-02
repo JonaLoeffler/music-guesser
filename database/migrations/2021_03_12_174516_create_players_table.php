@@ -19,6 +19,8 @@ class CreatePlayersTable extends Migration
             $table->uuid('room_id');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
 
+            $table->boolean('is_creator')->default(false);
+
             $table->string('name')->nullable();
 
             $table->string('spotify_access_token')->nullable();

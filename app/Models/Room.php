@@ -13,6 +13,11 @@ class Room extends Model
 {
     use HasFactory;
 
+    public function creator()
+    {
+        return $this->hasOne(Player::class)->where('is_creator', true);
+    }
+
     public function players()
     {
         return $this->hasMany(Player::class);

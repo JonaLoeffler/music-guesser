@@ -35,7 +35,12 @@ class RoomController extends Controller
         // we will create a new player and log them in.
         if ($player === null || !$room->players->contains($player)) {
             Auth::login(
-                $player = $room->players()->create(['name' => app(Generator::class)->userName]),
+                $player = $room->players()->create([
+                    // Generate a random username.
+                    'name' => app(Generator::class)->userName,
+                    // The first player to enter a room is the creator.
+                    'is_creator' => $room->players->isEmpty(),
+                ]),
                 true,
             );
         }
