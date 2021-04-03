@@ -1,8 +1,11 @@
 <template>
   <div class="flex h-80">
     <div class="m-auto">
-      Spotify
-      <button @click="play">Play</button>
+      <countdown
+        v-if="nextPlayAt"
+        :date="nextPlayAt"
+        v-on:done="this.nextPlayAt = null"
+      />
     </div>
   </div>
 </template>
@@ -12,9 +15,13 @@ import SpotifyApi from "../lib/spotify";
 import { defineComponent, PropType } from "vue";
 import Room from "../models/Room";
 import Round from "../models/Round";
+import Countdown from "./Countdown.vue";
 
 export default defineComponent({
   name: "Spotify",
+  components: {
+    Countdown,
+  },
   props: {
     access_token: {
       required: true,
@@ -24,6 +31,11 @@ export default defineComponent({
       required: true,
       type: Object as PropType<Room>,
     },
+  },
+  data(): { nextPlayAt: Date | null } {
+    return {
+      nextPlayAt: null,
+    };
   },
   methods: {
     play(uri: string) {
@@ -84,6 +96,8 @@ export default defineComponent({
     window.Echo.join(`room.${this.room.id}`).listen(
       "PlayTrack",
       (round: Round) => {
+        this.nextPlayAt = new Date(round.play_at);
+
         setTimeout(
           () => this.play(round.spotify_track_uri),
           new Date(round.play_at).getTime() - Date.now()
