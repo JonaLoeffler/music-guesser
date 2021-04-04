@@ -6,6 +6,6 @@ export default interface Guess {
     track: string,
     round: Round,
     player: Player,
-    updated_at: Date,
-    created_at: Date,
+    updated_at: string,
+    created_at: string,
 }

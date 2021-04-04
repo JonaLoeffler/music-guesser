@@ -1,21 +1,24 @@
 <template>
   <div class="flex h-80">
     <div class="m-auto">
-      <countdown
-        v-if="nextPlayAt"
-        :date="nextPlayAt"
-        v-on:done="this.nextPlayAt = null"
-      />
+      <countdown v-if="round" :date="new Date(round.playback_at)">
+        Playback starts in:
+      </countdown>
+      <br />
+
+      <countdown v-if="round" :date="new Date(round.completes_at)">
+        Round ends in:
+      </countdown>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import SpotifyApi from "../lib/spotify";
-import { defineComponent, PropType } from "vue";
-import Room from "../models/Room";
+import config from "../config";
 import Round from "../models/Round";
 import Countdown from "./Countdown.vue";
+import SpotifyApi from "../lib/spotify";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Spotify",
@@ -24,81 +27,65 @@ export default defineComponent({
   },
   props: {
     access_token: {
-      required: true,
       type: String,
+      required: true,
     },
     channel: {
       type: String,
       required: true,
     },
   },
-  data(): { nextPlayAt: Date | null } {
+  data(): { round: Round | null } {
     return {
-      nextPlayAt: null,
+      round: null,
     };
   },
   methods: {
     play(uri: string) {
-      SpotifyApi.play({
-        playerInstance: window.Player,
-        spotify_uri: uri,
-      });
-      setTimeout(() => window.Player.pause(), 4000);
+      if (this.round) {
+        SpotifyApi.play({
+          playerInstance: window.Player,
+          spotify_uri: uri,
+        });
+      }
     },
   },
   mounted() {
+    console.log(config.app.name);
     // @ts-ignore: Provided by Spotify CDN
     window.onSpotifyWebPlaybackSDKReady = () => {
       // @ts-ignore: Provided by Spotify CDN
       const player = new Spotify.Player({
-        name: "Which-Song.game",
+        name: config.app.name,
         getOAuthToken: (cb: any) => {
           cb(this.access_token);
         },
       });
 
-      // Error handling
-      player.addListener("initialization_error", ({ message }: any) => {
-        console.error(message);
-      });
-      player.addListener("authentication_error", ({ message }: any) => {
-        console.error(message);
-      });
-      player.addListener("account_error", ({ message }: any) => {
-        console.error(message);
-      });
-      player.addListener("playback_error", ({ message }: any) => {
-        console.error(message);
+      player.addListener("player_state_changed", () => {
+        setTimeout(() => window.Player.pause(), config.playback.duration);
       });
 
-      // Playback status updates
-      player.addListener("player_state_changed", (state: any) => {
-        console.log(state);
-      });
-
-      // Ready
-      player.addListener("ready", ({ device_id }: any) => {
+      player.addListener("ready", ({ device_id }: { device_id: string }) => {
         player._options.device_id = device_id;
-        console.log("Ready with Device ID", device_id);
       });
 
-      // Not Ready
-      player.addListener("not_ready", ({ device_id }: any) => {
-        console.log("Device ID has gone offline", device_id);
-      });
-
-      // Connect to the player!
       player.connect();
 
       window.Player = player;
     };
 
-    window.Echo.join(this.channel).listen("PlayTrack", (round: Round) => {
-      this.nextPlayAt = new Date(round.play_at);
+    window.Echo.join(this.channel).listen("RoundStarted", (round: Round) => {
+      this.round = round;
 
       setTimeout(
         () => this.play(round.spotify_track_uri),
-        new Date(round.play_at).getTime() - Date.now()
+        new Date(round.playback_at).getTime() - Date.now()
+      );
+
+      setTimeout(
+        () => (this.round = null),
+        new Date(round.completes_at).getTime() - Date.now()
       );
     });
   },

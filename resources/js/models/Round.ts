@@ -6,7 +6,8 @@ export default class Round implements RoundInterface {
         public number: number,
         public spotify_track_uri: string,
         public spotify_track_name: string,
-        public play_at: Date,
-        public created_at: Date,
-        public updated_at: Date) { }
+        public playback_at: string,
+        public completes_at: string,
+        public created_at: string,
+        public updated_at: string) { }
 }

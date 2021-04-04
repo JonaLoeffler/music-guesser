@@ -8,6 +8,6 @@ export default class Guess implements GuessInterface {
         public track: string,
         public round: Round,
         public player: Player,
-        public created_at: Date,
-        public updated_at: Date) { }
+        public created_at: string,
+        public updated_at: string) { }
 }

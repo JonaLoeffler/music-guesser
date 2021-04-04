@@ -47,8 +47,10 @@ export default defineComponent({
       if (this.round) {
         window.axios
           .post(`/rounds/${this.round.id}/guesses`, this.guess)
-          .then((response: AxiosResponse) => console.log(response))
+          .then((response: AxiosResponse) => {})
           .catch((error: AxiosError) => console.log(error));
+
+        this.guess.track = "";
       } else {
         console.log("Round not started");
       }
@@ -56,7 +58,7 @@ export default defineComponent({
   },
   mounted() {
     window.Echo.join(this.channel).listen(
-      "PlayTrack",
+      "RoundStarted",
       (round: Round) => (this.round = round)
     );
   },

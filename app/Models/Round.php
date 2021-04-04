@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Events\PlayTrack;
+use App\Events\RoundStarted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,7 +41,7 @@ class Round extends Model
                 ->count() + 1;
         });
 
-        self::created(fn (self $round) => event(new PlayTrack($round)));
+        self::created(fn (self $round) => event(new RoundStarted($round)));
     }
 
     public function room()

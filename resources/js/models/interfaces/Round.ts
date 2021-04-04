@@ -3,7 +3,8 @@ export default interface Round {
     number: number,
     spotify_track_uri: string,
     spotify_track_name: string,
-    play_at: Date,
-    updated_at: Date,
-    created_at: Date,
+    playback_at: string,
+    completes_at: string,
+    updated_at: string,
+    created_at: string,
 }

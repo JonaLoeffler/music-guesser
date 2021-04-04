@@ -1,4 +1,6 @@
-<template>{{ countdown }}</template>
+<template>
+  <span><slot></slot> {{ countdown }} </span>
+</template>
 
 <script lang="ts">
 import { defineComponent } from "vue";

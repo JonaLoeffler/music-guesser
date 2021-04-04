@@ -1,7 +1,14 @@
 <template>
   <div class="container mx-auto">
-    <div class="grid grid-cols-2 gap-4 py-4">
+    <div class="grid grid-cols-3 gap-4 py-4">
       <h2>Hello World from Vue</h2>
+      <button
+        class="btn btn-primary"
+        @click="start"
+        v-if="user.isAuthorizedWithSpotify() && user.isCreator()"
+      >
+        Start round
+      </button>
       <player-details :initial="player" />
     </div>
 
@@ -22,13 +29,6 @@
       </div>
       <div class="card">
         <h3>Timeline</h3>
-        <button
-          class="btn btn-primary"
-          @click="start"
-          v-if="user.isAuthorizedWithSpotify() && user.isCreator()"
-        >
-          Start round
-        </button>
         <timeline :channel="channel" />
       </div>
     </div>
@@ -36,7 +36,6 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
 import Room from "./models/Room";
 import Player from "./models/Player";
 
@@ -46,6 +45,8 @@ import GuessForm from "./components/GuessForm.vue";
 import PlayerList from "./components/PlayerList.vue";
 import SpotifyLogin from "./components/SpotifyLogin.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
+
+import { defineComponent, PropType } from "vue";
 import { AxiosError, AxiosResponse } from "axios";
 
 export default defineComponent({
@@ -84,7 +85,7 @@ export default defineComponent({
     start() {
       window.axios
         .post(`/rooms/${this.room.id}/rounds`)
-        .then((response: AxiosResponse) => console.log(response))
+        .then((response: AxiosResponse) => {})
         .catch((error: AxiosError) => console.log(error));
     },
   },

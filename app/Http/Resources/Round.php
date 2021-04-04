@@ -19,7 +19,8 @@ class Round extends JsonResource
             'number' => $this->number,
             'spotify_track_uri' => $this->spotify_track_uri,
             'spotify_track_name' => $this->spotify_track_name,
-            'play_at' => $this->created_at->addSeconds(5),
+            'playback_at' => $this->created_at->addSeconds(5),
+            'completes_at' => $this->created_at->addSeconds(40),
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
         ];
