@@ -8,7 +8,7 @@
     <div class="grid grid-cols-5 gap-4 min-h-5/6 mt-5">
       <div class="card">
         <h3>Players</h3>
-        <player-list :room="room" />
+        <player-list :channel="channel" :initial="room.players" />
       </div>
       <div class="card col-span-3">
         <h3>Main View</h3>
@@ -16,9 +16,9 @@
         <spotify
           v-if="user.isAuthorizedWithSpotify()"
           :access_token="user.spotify_access_token"
-          :room="room"
+          :channel="channel"
         />
-        <guess-form />
+        <guess-form :channel="channel" />
       </div>
       <div class="card">
         <h3>Timeline</h3>
@@ -29,6 +29,7 @@
         >
           Start round
         </button>
+        <timeline :channel="channel" />
       </div>
     </div>
   </div>
@@ -40,9 +41,10 @@ import Room from "./models/Room";
 import Player from "./models/Player";
 
 import Spotify from "./components/Spotify.vue";
-import SpotifyLogin from "./components/SpotifyLogin.vue";
+import Timeline from "./components/Timeline.vue";
 import GuessForm from "./components/GuessForm.vue";
 import PlayerList from "./components/PlayerList.vue";
+import SpotifyLogin from "./components/SpotifyLogin.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
 import { AxiosError, AxiosResponse } from "axios";
 
@@ -50,9 +52,10 @@ export default defineComponent({
   name: "Room",
   components: {
     Spotify,
-    SpotifyLogin,
+    Timeline,
     GuessForm,
     PlayerList,
+    SpotifyLogin,
     PlayerDetails,
   },
   data() {
@@ -83,6 +86,11 @@ export default defineComponent({
         .post(`/rooms/${this.room.id}/rounds`)
         .then((response: AxiosResponse) => console.log(response))
         .catch((error: AxiosError) => console.log(error));
+    },
+  },
+  computed: {
+    channel: function (): string {
+      return `room.${this.room.id}`;
     },
   },
 });

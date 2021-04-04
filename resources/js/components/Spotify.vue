@@ -27,9 +27,9 @@ export default defineComponent({
       required: true,
       type: String,
     },
-    room: {
+    channel: {
+      type: String,
       required: true,
-      type: Object as PropType<Room>,
     },
   },
   data(): { nextPlayAt: Date | null } {
@@ -93,17 +93,14 @@ export default defineComponent({
       window.Player = player;
     };
 
-    window.Echo.join(`room.${this.room.id}`).listen(
-      "PlayTrack",
-      (round: Round) => {
-        this.nextPlayAt = new Date(round.play_at);
+    window.Echo.join(this.channel).listen("PlayTrack", (round: Round) => {
+      this.nextPlayAt = new Date(round.play_at);
 
-        setTimeout(
-          () => this.play(round.spotify_track_uri),
-          new Date(round.play_at).getTime() - Date.now()
-        );
-      }
-    );
+      setTimeout(
+        () => this.play(round.spotify_track_uri),
+        new Date(round.play_at).getTime() - Date.now()
+      );
+    });
   },
 });
 </script>

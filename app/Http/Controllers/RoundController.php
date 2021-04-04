@@ -27,10 +27,11 @@ class RoundController extends Controller
             $request->user()->spotify_access_token
         );
 
-        $uris = collect($response['tracks']['items'])->map->track->map->uri;
+        $track = collect($response['tracks']['items'])->map->track->random();
 
         $round = $room->rounds()->create([
-            'spotify_track_uri' => $uris->random(),
+            'spotify_track_uri' => $track['uri'],
+            'spotify_track_name' => $track['name'],
         ]);
 
         return new RoundResource($round);

@@ -5,21 +5,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import Room from "../models/Room";
 import Player from "../models/Player";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "PlayerList",
   props: {
-    room: {
-      type: Object as PropType<Room>,
+    initial: {
+      type: Object as PropType<Player[]>,
+      required: true,
+    },
+    channel: {
+      type: String,
       required: true,
     },
   },
-  data() {
+  data(): { players: Player[] } {
     return {
-      players: this.room.players,
+      players: this.initial,
     };
   },
   computed: {
@@ -31,7 +34,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    window.Echo.join(`room.${this.room.id}`)
+    window.Echo.join(this.channel)
       .here((players: Player[]) => {
         this.players = players;
       })

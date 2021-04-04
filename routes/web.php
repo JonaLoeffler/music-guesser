@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GuessController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoundController;
@@ -29,6 +30,7 @@ Route::middleware('auth:web')->group(function () {
     Route::middleware('response.json')->group(function () {
         Route::apiResource('players', PlayerController::class)->only('update');
 
-        Route::apiResource('rooms.rounds', RoundController::class);
+        Route::apiResource('rooms.rounds', RoundController::class)->only('store');
+        Route::apiREsource('rounds.guesses', GuessController::class)->only('store');
     });
 });

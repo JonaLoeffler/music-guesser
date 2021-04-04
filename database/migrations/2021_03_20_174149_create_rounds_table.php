@@ -22,6 +22,7 @@ class CreateRoundsTable extends Migration
             $table->unsignedInteger('number');
 
             $table->string('spotify_track_uri');
+            $table->string('spotify_track_name');
 
             $table->timestamps();
         });

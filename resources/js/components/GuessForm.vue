@@ -2,47 +2,63 @@
   <form @submit.prevent method="post">
     <input
       type="text"
-      name="song"
-      id="input_song"
-      placeholder="Song Name"
-      v-model="guess.song"
+      name="track"
+      id="input_track"
+      placeholder="Track Name"
+      v-model="guess.track"
       class="border border-gray-200"
       required
       autofocus
     />
-    -
-    <input
-      type="text"
-      name="artist"
-      id="input_artist"
-      placeholder="Artist Name"
-      v-model="guess.artist"
-      class="border border-gray-300"
-      required
-    />
-    <button type="submit" @click="submit" class="btn btn-primary p-1">
+    <button
+      type="submit"
+      @click="submit"
+      class="btn btn-primary p-1 disabled:opacity-50"
+      v-if="this.round"
+    >
       Done
     </button>
   </form>
 </template>
 
 <script lang="ts">
+import Round from "../models/Round";
 import { defineComponent } from "vue";
+import { AxiosError, AxiosResponse } from "axios";
 
 export default defineComponent({
   name: "GuessForm",
-  data() {
+  props: {
+    channel: {
+      type: String,
+      required: true,
+    },
+  },
+  data(): { guess: { track: string }; round: Round | null } {
     return {
       guess: {
-        artist: "",
-        song: "",
+        track: "",
       },
+      round: null,
     };
   },
   methods: {
     submit() {
-      console.log(`Submitting ${this.guess.artist}-${this.guess.song}`);
+      if (this.round) {
+        window.axios
+          .post(`/rounds/${this.round.id}/guesses`, this.guess)
+          .then((response: AxiosResponse) => console.log(response))
+          .catch((error: AxiosError) => console.log(error));
+      } else {
+        console.log("Round not started");
+      }
     },
+  },
+  mounted() {
+    window.Echo.join(this.channel).listen(
+      "PlayTrack",
+      (round: Round) => (this.round = round)
+    );
   },
 });
 </script>

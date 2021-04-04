@@ -22,6 +22,7 @@ class Round extends Model
      */
     protected $fillable = [
         'spotify_track_uri',
+        'spotify_track_name',
     ];
 
     /**

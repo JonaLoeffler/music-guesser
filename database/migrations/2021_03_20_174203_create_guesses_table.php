@@ -22,8 +22,8 @@ class CreateGuessesTable extends Migration
             $table->uuid('player_id');
             $table->foreign('player_id')->references('id')->on('players')->onDelete('cascade');
 
-            $table->string('song');
-            $table->string('artist');
+            $table->string('track');
+            // $table->string('artist');
 
             $table->timestamps();
         });

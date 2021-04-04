@@ -6,6 +6,11 @@ use App\Events\PlayerUpdated;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * App\Models\Player
+ *
+ * @property \App\Models\Room $room
+ */
 class Player extends Model implements Authenticatable
 {
     use HasFactory;
