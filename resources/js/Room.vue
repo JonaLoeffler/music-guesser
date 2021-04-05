@@ -29,7 +29,7 @@
       </div>
       <div class="card">
         <h3>Timeline</h3>
-        <timeline :channel="channel" />
+        <timeline :channel="channel" :player="user" />
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@ export default defineComponent({
     SpotifyLogin,
     PlayerDetails,
   },
-  data() {
+  data(): { user: Player } {
     return {
       user: new Player(
         this.player.id,

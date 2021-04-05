@@ -15,6 +15,16 @@ class Guess extends Model
 {
     use HasFactory;
 
+    public const WRONG = 'wrong';
+    public const CLOSE = 'close';
+    public const CORRECT = 'correct';
+
+    public const STATUSES = [
+        self::WRONG,
+        self::CLOSE,
+        self::CORRECT,
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +33,7 @@ class Guess extends Model
     protected $fillable = [
         'player_id',
         'track',
+        'status',
     ];
 
     /**

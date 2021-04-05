@@ -6,6 +6,7 @@ use App\Http\Resources\Guess as GuessResource;
 use App\Models\Guess;
 use App\Models\Round;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class GuessController extends Controller
 {
@@ -27,6 +28,9 @@ class GuessController extends Controller
         $guess = $round->guesses()->create([
             'player_id' => $request->user()->id,
             'track' => $request->track,
+            'status' => strtolower($request->track) == strtolower($round->spotify_track_name)
+                ? Guess::CORRECT
+                : Guess::WRONG,
         ]);
 
         return new GuessResource($guess);

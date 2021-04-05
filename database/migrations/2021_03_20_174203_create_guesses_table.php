@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Guess;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,6 +25,8 @@ class CreateGuessesTable extends Migration
 
             $table->string('track');
             // $table->string('artist');
+
+            $table->enum('status', Guess::STATUSES);
 
             $table->timestamps();
         });

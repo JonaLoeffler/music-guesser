@@ -16,6 +16,7 @@ class Guess extends JsonResource
     {
         return [
             'track' => $this->track,
+            'status' => $this->status,
             'player' => new Player($this->player),
             'round' => new Round($this->round),
         ];
