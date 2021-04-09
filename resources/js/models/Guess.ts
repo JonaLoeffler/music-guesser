@@ -1,14 +1,12 @@
-import Round from './Round';
-import Player from './Player';
-import GuessInterface from './interfaces/Guess'
+import Round from "./Round";
+import Player from "./Player";
 
-export default class Guess implements GuessInterface {
-    constructor(
-        public id: number,
-        public track: string,
-        public status: 'correct' | 'close' | 'wrong',
-        public round: Round,
-        public player: Player,
-        public created_at: string,
-        public updated_at: string) { }
+export default interface Guess {
+    id: number,
+    track: string,
+    status: 'correct' | 'close' | 'wrong',
+    round: Round,
+    player: Player,
+    updated_at: string,
+    created_at: string,
 }
