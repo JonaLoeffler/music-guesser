@@ -16,7 +16,7 @@
     <title>{{ config('app.name') }}</title>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-green-800">
     @if (session()->has('error'))
         <div class="bg-red-300 font-bold text-red-700 text-center p-1">
             {{ session('error') }}

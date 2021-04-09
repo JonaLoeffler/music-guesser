@@ -1,23 +1,25 @@
 <template>
   <form @submit.prevent method="post">
-    <input
-      type="text"
-      name="track"
-      id="input_track"
-      placeholder="Track Name"
-      v-model="guess.track"
-      class="border border-gray-200"
-      required
-      autofocus
-    />
-    <button
-      type="submit"
-      @click="submit"
-      class="btn btn-primary p-1 disabled:opacity-50"
-      v-if="this.round"
-    >
-      Done
-    </button>
+    <div class="flex">
+      <input
+        type="text"
+        name="track"
+        id="input_track"
+        placeholder="Track Name"
+        v-model="guess.track"
+        class="text-center text-3xl flex-grow"
+        required
+        autofocus
+      />
+      <button
+        type="submit"
+        @click="submit"
+        class="btn btn-primary bg-pink-400 disabled:opacity-50"
+        v-if="this.round"
+      >
+        Send!
+      </button>
+    </div>
   </form>
 </template>
 

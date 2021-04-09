@@ -12,23 +12,23 @@
       <player-details :initial="player" />
     </div>
 
-    <div class="grid grid-cols-5 gap-4 min-h-5/6 mt-5">
-      <div class="card">
-        <h3>Players</h3>
+    <div class="grid grid-cols-12 gap-2 min-h-5/6 mt-5">
+      <div class="card col-span-3">
         <player-list :channel="channel" :initial="room.players" />
       </div>
-      <div class="card col-span-3">
-        <h3>Main View</h3>
+
+      <div class="card col-span-6 flex flex-col justify-between">
         <spotify-login v-if="!user.isAuthorizedWithSpotify()" />
         <spotify
           v-if="user.isAuthorizedWithSpotify()"
           :access_token="user.spotify_access_token"
           :channel="channel"
         />
+
         <guess-form :channel="channel" />
       </div>
-      <div class="card">
-        <h3>Timeline</h3>
+
+      <div class="card col-span-3">
         <timeline :channel="channel" :player="user" />
       </div>
     </div>

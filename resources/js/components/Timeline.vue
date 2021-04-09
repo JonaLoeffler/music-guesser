@@ -7,7 +7,7 @@
       <span v-else-if="guess.status === 'close'" class="text-orange-300">
         {{ guess.track }} was close!
       </span>
-      <span v-else> {{ guess.player.name }} guessed {{ guess.track }} </span>
+      <span v-else>{{ guess.player.name }}: {{ guess.track }}</span>
     </li>
   </ul>
 </template>
