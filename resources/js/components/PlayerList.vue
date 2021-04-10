@@ -11,9 +11,9 @@
       <div class="ml-3">
         <div>
           <span class="font-bold text-lg">{{ player.name }}</span>
-          <span> (You)</span>
+          <span v-if="player.id === user.id"> (You)</span>
         </div>
-        {{ 1000 }} Punkte
+        {{ player.score }} Punkte
       </div>
     </li>
   </ul>
@@ -26,6 +26,10 @@ import { defineComponent, PropType } from "vue";
 export default defineComponent({
   name: "PlayerList",
   props: {
+    user: {
+      type: Object as PropType<Player[]>,
+      required: true,
+    },
     initial: {
       type: Object as PropType<Player[]>,
       required: true,
@@ -42,12 +46,15 @@ export default defineComponent({
   },
   computed: {
     sorted: function (): Player[] {
-      return this.players
-        .slice()
-        .sort(
-          (a: Player, b: Player) =>
-            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      return this.players.slice().sort((a: Player, b: Player) => {
+        if (a.score > 0 && b.score > 0) {
+          return a.score - b.score;
+        }
+
+        return (
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
         );
+      });
     },
   },
   mounted() {

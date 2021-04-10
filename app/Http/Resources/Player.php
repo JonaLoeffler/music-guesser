@@ -17,6 +17,7 @@ class Player extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'score' => $this->score,
             'is_creator' => $this->is_creator,
             'spotify_access_token' => $this->when($this->id === $request->user()->id, $this->spotify_access_token),
             'updated_at' => $this->updated_at,

@@ -5,7 +5,7 @@
       <button
         class="btn btn-primary px-5"
         @click="start"
-        v-if="user.isAuthorizedWithSpotify() && user.isCreator()"
+        v-if="player.spotify_access_token && player.is_creator"
       >
         Start round
       </button>
@@ -15,14 +15,18 @@
     <div class="grid grid-cols-12 gap-2 min-h-5/6 mt-5">
       <div class="card col-span-3">
         <round :channel="channel" />
-        <player-list :channel="channel" :initial="room.players" />
+        <player-list
+          :channel="channel"
+          :initial="room.players"
+          :user="player"
+        />
       </div>
 
       <div class="card col-span-6 flex flex-col justify-between">
-        <spotify-login v-if="!user.isAuthorizedWithSpotify()" />
+        <spotify-login v-if="!player.spotify_access_token" />
         <spotify
-          v-if="user.isAuthorizedWithSpotify()"
-          :access_token="user.spotify_access_token"
+          v-else
+          :access_token="player.spotify_access_token"
           :channel="channel"
         />
 
@@ -30,7 +34,7 @@
       </div>
 
       <div class="card col-span-3">
-        <timeline :channel="channel" :player="user" />
+        <timeline :channel="channel" :player="player" />
       </div>
     </div>
   </div>
@@ -63,17 +67,9 @@ export default defineComponent({
     SpotifyLogin,
     PlayerDetails,
   },
-  data(): { title: string; user: Player } {
+  data(): { title: string } {
     return {
       title: config.app.name,
-      user: new Player(
-        this.player.id,
-        this.player.name,
-        this.player.is_creator,
-        this.player.created_at,
-        this.player.updated_at,
-        this.player.spotify_access_token
-      ),
     };
   },
   props: {

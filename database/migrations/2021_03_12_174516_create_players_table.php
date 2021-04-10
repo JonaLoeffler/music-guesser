@@ -23,6 +23,8 @@ class CreatePlayersTable extends Migration
 
             $table->string('name')->nullable();
 
+            $table->unsignedInteger('score')->default(0);
+
             $table->string('spotify_access_token')->nullable();
             $table->string('spotify_token_type')->nullable();
             $table->dateTime('spotify_expires_at')->nullable();
