@@ -14,7 +14,7 @@
 
     <div class="grid grid-cols-12 gap-2 min-h-5/6 mt-5">
       <div class="card col-span-3">
-        <round :channel="channel" />
+        <info :channel="channel" />
         <player-list
           :channel="channel"
           :initial="room.players"
@@ -26,8 +26,8 @@
         <spotify-login v-if="!player.spotify_access_token" />
         <spotify
           v-else
+          :round="round"
           :access_token="player.spotify_access_token"
-          :channel="channel"
         />
 
         <guess-form :channel="channel" />
@@ -45,7 +45,7 @@ import config from "./config";
 import Room from "./models/Room";
 import Player from "./models/Player";
 
-import Round from "./components/Round.vue";
+import Info from "./components/Round.vue";
 import Spotify from "./components/Spotify.vue";
 import Timeline from "./components/Timeline.vue";
 import GuessForm from "./components/GuessForm.vue";
@@ -55,11 +55,12 @@ import PlayerDetails from "./components/PlayerDetails.vue";
 
 import { defineComponent, PropType } from "vue";
 import { AxiosError, AxiosResponse } from "axios";
+import Round from "./models/Round";
 
 export default defineComponent({
   name: "Room",
   components: {
-    Round,
+    Info,
     Spotify,
     Timeline,
     GuessForm,
@@ -67,9 +68,10 @@ export default defineComponent({
     SpotifyLogin,
     PlayerDetails,
   },
-  data(): { title: string } {
+  data(): { title: string; round: Round | null } {
     return {
       title: config.app.name,
+      round: null,
     };
   },
   props: {
@@ -86,9 +88,27 @@ export default defineComponent({
     start() {
       window.axios
         .post(`/rooms/${this.room.id}/rounds`)
-        .then((response: AxiosResponse) => {})
+        .then((response: AxiosResponse) => (this.round = response.data.data))
         .catch((error: AxiosError) => console.log(error));
     },
+    finish() {
+      if (this.round) {
+        window.axios
+          .put(`/rooms/${this.room.id}/rounds/${this.round.id}`)
+          .then((response: AxiosResponse) => (this.round = response.data.data))
+          .catch((error: AxiosError) => console.log(error));
+      }
+    },
+  },
+  mounted() {
+    window.Echo.join(this.channel).listen("RoundStarted", (round: Round) => {
+      this.round = round;
+
+      setTimeout(
+        this.finish,
+        new Date(round.completes_at).getTime() - Date.now()
+      );
+    });
   },
   computed: {
     channel: function (): string {

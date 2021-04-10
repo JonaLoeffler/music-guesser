@@ -53,4 +53,14 @@ class Round extends Model
     {
         return  $this->hasMany(Guess::class);
     }
+
+    public function getPlaybackAtAttribute()
+    {
+        return $this->created_at->addSeconds(5);
+    }
+
+    public function getCompletesAtAttribute()
+    {
+        return $this->created_at->addSeconds(15);
+    }
 }

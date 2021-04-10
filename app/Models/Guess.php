@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Events\GuessReceived;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 
 /**
  * App\Models\Guess
  *
+ * @property int $quality
  * @property \App\Models\Round $round
  */
 class Guess extends Model
@@ -56,5 +58,27 @@ class Guess extends Model
     public function player()
     {
         return $this->belongsTo(Player::class);
+    }
+
+    public function scopeStatus($query, string $status)
+    {
+        throw_unless(in_array($status, self::STATUSES), new InvalidArgumentException("Invalid status: {$status}"));
+
+        $query->where('status', $status);
+    }
+
+    public function scopeCorrect($query)
+    {
+        $query->status(self::CORRECT);
+    }
+
+    public function scopeWrong($query)
+    {
+        $query->status(self::WRONG);
+    }
+
+    public function scopeClose($query)
+    {
+        $query->status(self::CLOSE);
     }
 }

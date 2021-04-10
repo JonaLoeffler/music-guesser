@@ -22,4 +22,20 @@ class RoundPolicy
     {
         return $player->is($room->creator);
     }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\Player  $player
+     * @param  \App\Models\Round  $round
+     * @param  \App\Models\Room  $room
+     * @return mixed
+     */
+    public function update(Player $player, Round $round, Room $room)
+    {
+        // Make sure the round has ended
+        return $round->completes_at->lte(now())
+            // Only the room creator finishes the round
+            && $player->is($room->creator);
+    }
 }

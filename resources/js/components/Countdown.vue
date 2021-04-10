@@ -28,7 +28,7 @@ export default defineComponent({
     },
   },
   watch: {
-    remaining: function (fresh, old) {
+    remaining: function (fresh: number, old: number) {
       if (fresh < 0 && old === 0) {
         this.$emit("done");
       }

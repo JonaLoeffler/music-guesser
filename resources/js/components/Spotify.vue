@@ -18,7 +18,7 @@ import config from "../config";
 import Round from "../models/Round";
 import Countdown from "./Countdown.vue";
 import SpotifyApi from "../lib/spotify";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "Spotify",
@@ -30,28 +30,32 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    channel: {
-      type: String,
-      required: true,
+    round: {
+      type: Object as PropType<Round | null>,
+      required: false,
     },
   },
-  data(): { round: Round | null } {
-    return {
-      round: null,
-    };
+  watch: {
+    round: function (fresh: Round | null, old: Round | null) {
+      if (old === null && fresh !== null) {
+        setTimeout(
+          this.play,
+          new Date(fresh.playback_at).getTime() - Date.now()
+        );
+      }
+    },
   },
   methods: {
-    play(uri: string) {
+    play() {
       if (this.round) {
         SpotifyApi.play({
           playerInstance: window.Player,
-          spotify_uri: uri,
+          spotify_uri: this.round.spotify_track_uri,
         });
       }
     },
   },
   mounted() {
-    console.log(config.app.name);
     // @ts-ignore: Provided by Spotify CDN
     window.onSpotifyWebPlaybackSDKReady = () => {
       // @ts-ignore: Provided by Spotify CDN
@@ -74,20 +78,6 @@ export default defineComponent({
 
       window.Player = player;
     };
-
-    window.Echo.join(this.channel).listen("RoundStarted", (round: Round) => {
-      this.round = round;
-
-      setTimeout(
-        () => this.play(round.spotify_track_uri),
-        new Date(round.playback_at).getTime() - Date.now()
-      );
-
-      setTimeout(
-        () => (this.round = null),
-        new Date(round.completes_at).getTime() - Date.now()
-      );
-    });
   },
 });
 </script>
