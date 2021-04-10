@@ -1,9 +1,9 @@
 <template>
   <div class="container mx-auto">
-    <div class="grid grid-cols-3 gap-4 py-4">
-      <h2>Hello World from Vue</h2>
+    <div class="flex justify-between py-4">
+      <h1 class="text-2xl mx-2">{{ title }}</h1>
       <button
-        class="btn btn-primary"
+        class="btn btn-primary px-5"
         @click="start"
         v-if="user.isAuthorizedWithSpotify() && user.isCreator()"
       >
@@ -14,6 +14,7 @@
 
     <div class="grid grid-cols-12 gap-2 min-h-5/6 mt-5">
       <div class="card col-span-3">
+        <round :channel="channel" />
         <player-list :channel="channel" :initial="room.players" />
       </div>
 
@@ -36,9 +37,11 @@
 </template>
 
 <script lang="ts">
+import config from "./config";
 import Room from "./models/Room";
 import Player from "./models/Player";
 
+import Round from "./components/Round.vue";
 import Spotify from "./components/Spotify.vue";
 import Timeline from "./components/Timeline.vue";
 import GuessForm from "./components/GuessForm.vue";
@@ -52,6 +55,7 @@ import { AxiosError, AxiosResponse } from "axios";
 export default defineComponent({
   name: "Room",
   components: {
+    Round,
     Spotify,
     Timeline,
     GuessForm,
@@ -59,8 +63,9 @@ export default defineComponent({
     SpotifyLogin,
     PlayerDetails,
   },
-  data(): { user: Player } {
+  data(): { title: string; user: Player } {
     return {
+      title: config.app.name,
       user: new Player(
         this.player.id,
         this.player.name,

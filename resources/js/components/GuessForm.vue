@@ -8,14 +8,13 @@
         placeholder="Track Name"
         v-model="guess.track"
         class="text-center text-3xl flex-grow"
-        required
         autofocus
       />
       <button
         type="submit"
         @click="submit"
-        class="btn btn-primary bg-pink-400 disabled:opacity-50"
-        v-if="this.round"
+        class="btn bg-pink-400 disabled:opacity-50"
+        :disabled="this.round === null"
       >
         Send!
       </button>

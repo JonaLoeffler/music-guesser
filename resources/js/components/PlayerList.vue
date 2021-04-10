@@ -1,6 +1,21 @@
 <template>
   <ul>
-    <li v-for="player in sorted" v-bind:key="player.id">{{ player.name }}</li>
+    <li
+      v-for="(player, index) in sorted"
+      v-bind:key="player.id"
+      class="flex p-2"
+    >
+      <div class="font-bold text-2xl px-2 flex items-center">
+        #{{ index + 1 }}
+      </div>
+      <div class="ml-3">
+        <div>
+          <span class="font-bold text-lg">{{ player.name }}</span>
+          <span> (You)</span>
+        </div>
+        {{ 1000 }} Punkte
+      </div>
+    </li>
   </ul>
 </template>
 
@@ -27,10 +42,12 @@ export default defineComponent({
   },
   computed: {
     sorted: function (): Player[] {
-      return this.players.sort(
-        (a: Player, b: Player) =>
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-      );
+      return this.players
+        .slice()
+        .sort(
+          (a: Player, b: Player) =>
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        );
     },
   },
   mounted() {
