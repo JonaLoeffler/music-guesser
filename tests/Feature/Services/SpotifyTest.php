@@ -30,4 +30,21 @@ class SpotifyTest extends TestCase
 
         $this->assertEquals('token', $result['access_token']);
     }
+
+    public function testSpotifyPlaylistWorks()
+    {
+        Http::fake([
+            'spotify.com/*'  => Http::response(['tracks' => []]),
+        ]);
+
+        $uri = "uri";
+        $token = "token";
+
+        $result = Spotify::playlist($uri, $token);
+
+        Http::assertSent(
+            fn (Request $request) => $request->isForm()
+                && $request->hasHeader('Authorization', "Bearer {$token}"),
+        );
+    }
 }

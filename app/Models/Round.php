@@ -61,6 +61,6 @@ class Round extends Model
 
     public function getCompletesAtAttribute()
     {
-        return $this->created_at->addSeconds(15);
+        return $this->created_at->addSeconds(30);
     }
 }
