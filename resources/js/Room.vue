@@ -1,9 +1,9 @@
 <template>
-  <div class="container mx-auto">
-    <div class="flex justify-between py-4">
+  <div class="container mx-auto pt-2 h-screen">
+    <div class="card flex justify-between mb-2">
       <h1 class="text-2xl mx-2">{{ title }}</h1>
       <button
-        class="btn btn-primary px-5"
+        class="btn btn-primary"
         @click="start"
         v-if="player.spotify_access_token && player.is_creator"
       >
@@ -12,8 +12,8 @@
       <player-details :initial="player" />
     </div>
 
-    <div class="grid grid-cols-12 gap-2 min-h-5/6 mt-5">
-      <div class="card col-span-3">
+    <div class="grid grid-cols-12 gap-2 h-50">
+      <div class="card col-span-3 px-0">
         <info :channel="channel" />
         <player-list
           :channel="channel"
@@ -33,7 +33,7 @@
         <guess-form :channel="channel" />
       </div>
 
-      <div class="card col-span-3">
+      <div class="card col-span-3 overflow-auto">
         <timeline :channel="channel" :player="player" />
       </div>
     </div>

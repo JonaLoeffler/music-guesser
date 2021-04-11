@@ -4,6 +4,7 @@
       v-for="(player, index) in sorted"
       v-bind:key="player.id"
       class="flex p-2"
+      :class="{ 'bg-green-200': index % 2 == 0 }"
     >
       <div class="font-bold text-2xl px-2 flex items-center">
         #{{ index + 1 }}

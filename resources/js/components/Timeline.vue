@@ -1,6 +1,11 @@
 <template>
   <ul>
-    <li v-for="guess in guesses" v-bind:key="guess.id">
+    <li
+      v-for="(guess, index) in guesses"
+      v-bind:key="guess.id"
+      class="p-1"
+      :class="{ 'bg-green-200': index % 2 == 0 }"
+    >
       <span v-if="guess.status === 'correct'" class="text-green-500">
         {{ guess.track }} was correct!
       </span>
@@ -39,6 +44,8 @@ export default defineComponent({
       if (guess.player.id === this.player.id || guess.status != "correct") {
         this.guesses.push(guess);
       }
+
+      setTimeout(() => this.$el.lastElementChild.scrollIntoView(), 20);
     });
   },
 });
