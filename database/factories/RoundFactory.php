@@ -22,7 +22,9 @@ class RoundFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'number' => $this->faker->randomNumber(1),
+            'spotify_track_uri' => 'spotify:track:2LBjwUnpQ9dFKFaZ2QlTgL',
+            'spotify_track_name' => 'Leev Marie',
         ];
     }
 }

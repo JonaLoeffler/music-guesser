@@ -51,6 +51,7 @@ class RoundController extends Controller
 
         // Compute scores for all players
         $guesses = $round->guesses()
+            ->whereBetween('created_at', [$round->created_at, $round->completes_at])
             ->correct()
             ->latest()
             ->get();
@@ -60,15 +61,17 @@ class RoundController extends Controller
         // Decide how many points are awarded based on how many players participated.
         $points = 100 * $playerCount;
 
-        // Compute a guess quality - faster means better
+        // Compute a guess quality - faster means better.
         $guesses = $guesses->map(function (Guess $guess) use ($round) {
             $guess->quality = $guess->created_at->diffInSeconds($round->playback_at);
 
             return $guess;
         });
 
+        // Compute the total quality.
         $quality = $guesses->reduce(fn (int $carry, Guess $guess) => $guess->quality + $carry, 0);
 
+        // Score each guess according to its quality.
         foreach ($guesses as $guess) {
             $guess->player->increment('score', $guess->quality * ($points / $quality));
         }

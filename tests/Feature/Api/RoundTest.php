@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\Player;
 use App\Models\Room;
+use App\Models\Round;
 use App\Services\Spotify\Facades\Spotify;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -36,5 +37,28 @@ class RoundTest extends TestCase
                 'spotify_track_name' => 'Test',
                 'spotify_track_uri' => 'uri',
             ]]);
+    }
+
+    public function testCreatorCanFinishRound()
+    {
+        $room = Room::factory()->create();
+        $round = Round::factory()->for($room)->create(['created_at' => now()->subMinutes(4)]);
+        $player = Player::factory()->for($room)->create(['is_creator' => true]);
+
+        $this->actingAs($player)->put("/rooms/{$room->id}/rounds/{$round->id}")
+            ->assertStatus(200);
+
+        // No guesses so player score should still be zero
+        $this->assertDatabaseHas('players', ['id' => $player->id, 'score' => 0]);
+    }
+
+    public function testRoundMustBeCompleteBeforeFinishing()
+    {
+        $room = Room::factory()->create();
+        $round = Round::factory()->for($room)->create();
+        $player = Player::factory()->for($room)->create(['is_creator' => true]);
+
+        $this->actingAs($player)->put("/rooms/{$room->id}/rounds/{$round->id}")
+            ->assertStatus(403);
     }
 }
