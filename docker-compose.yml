@@ -18,7 +18,7 @@ services:
       - which-track
 
   db:
-    image: mysql:5.7
+    image: biarms/mysql:5.7
     container_name: which-track-db
     restart: unless-stopped
     environment:
