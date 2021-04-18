@@ -5,7 +5,7 @@
       <button
         class="btn btn-primary"
         @click="start"
-        v-if="player.spotify_access_token && player.is_creator"
+        v-if="player.spotify_access_token && player.is_creator && !this.round"
       >
         Start round
       </button>
@@ -97,6 +97,8 @@ export default defineComponent({
           .put(`/rooms/${this.room.id}/rounds/${this.round.id}`)
           .then((response: AxiosResponse) => (this.round = response.data.data))
           .catch((error: AxiosError) => console.log(error));
+
+        this.round = null;
       }
     },
   },
