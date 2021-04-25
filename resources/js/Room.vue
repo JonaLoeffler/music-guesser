@@ -95,10 +95,8 @@ export default defineComponent({
       if (this.round) {
         window.axios
           .put(`/rooms/${this.room.id}/rounds/${this.round.id}`)
-          .then((response: AxiosResponse) => (this.round = response.data.data))
+          .then((_: AxiosResponse) => (this.round = null))
           .catch((error: AxiosError) => console.log(error));
-
-        this.round = null;
       }
     },
   },

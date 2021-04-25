@@ -37,22 +37,20 @@ export default defineComponent({
   },
   watch: {
     round: function (fresh: Round | null, old: Round | null) {
-      if (old === null && fresh !== null) {
-        setTimeout(
-          this.play,
-          new Date(fresh.playback_at).getTime() - Date.now()
-        );
-      }
+      if (fresh === null) return;
+
+      const delay = new Date(fresh.playback_at).getTime() - Date.now();
+
+      if (delay > 0)
+        setTimeout(() => this.play(fresh.spotify_track_uri), delay);
     },
   },
   methods: {
-    play() {
-      if (this.round) {
-        SpotifyApi.play({
-          playerInstance: window.Player,
-          spotify_uri: this.round.spotify_track_uri,
-        });
-      }
+    play(uri: String) {
+      SpotifyApi.play({
+        playerInstance: window.Player,
+        spotify_uri: uri,
+      });
     },
   },
   mounted() {
