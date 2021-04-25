@@ -14,7 +14,7 @@
           <span class="font-bold text-lg">{{ player.name }}</span>
           <span v-if="player.id === user.id"> (You)</span>
         </div>
-        {{ player.score }} Punkte
+        {{ Math.round(player.score) }} Punkte
       </div>
     </li>
   </ul>
