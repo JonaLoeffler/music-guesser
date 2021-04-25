@@ -49,7 +49,7 @@ export default defineComponent({
     sorted: function (): Player[] {
       return this.players.slice().sort((a: Player, b: Player) => {
         if (a.score > 0 && b.score > 0) {
-          return a.score - b.score;
+          return b.score - a.score;
         }
 
         return (
