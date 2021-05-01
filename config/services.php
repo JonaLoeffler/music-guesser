@@ -17,7 +17,7 @@ return [
     */
 
     'spotify' => [
-        'url' => Str::of(env('SPOTIFY_API_URL'))->finish('/'),
+        'url' => env('SPOTIFY_API_URL'),
         'paths' => [
             'token' => 'token',
             'playlists' => 'playlists',
