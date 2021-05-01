@@ -33,15 +33,15 @@ services:
     networks:
       - which-track
 
-  nginx:
-    image: nginx:1.17-alpine
-    container_name: which-track-nginx
+  lighttpd:
+    image: sebp/lighttpd
+    container_name: which-track-lighttpd
     restart: unless-stopped
     ports:
       - 8000:80
     volumes:
       - ./:/var/www/html
-      - ./docker-compose/nginx:/etc/nginx/conf.d
+      - ./docker-compose/lighttpd:/etc/lighttpd
     networks:
       - which-track
 

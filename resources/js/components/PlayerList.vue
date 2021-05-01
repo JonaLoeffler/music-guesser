@@ -14,7 +14,7 @@
           <span class="font-bold text-lg">{{ player.name }}</span>
           <span v-if="player.id === user.id"> (You)</span>
         </div>
-        {{ player.score }} Punkte
+        {{ Math.round(player.score) }} Punkte
       </div>
     </li>
   </ul>
@@ -49,7 +49,7 @@ export default defineComponent({
     sorted: function (): Player[] {
       return this.players.slice().sort((a: Player, b: Player) => {
         if (a.score > 0 && b.score > 0) {
-          return a.score - b.score;
+          return b.score - a.score;
         }
 
         return (

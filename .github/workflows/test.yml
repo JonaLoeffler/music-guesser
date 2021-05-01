@@ -1,9 +1,8 @@
-name: Laravel
+name: GrumPHP 
 
 on:
   push:
     branches:
-      - master
       - develop
   pull_request:
     branches:
@@ -12,9 +11,7 @@ on:
 
 jobs:
   laravel-tests:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
       with:
