@@ -10,6 +10,7 @@
         Start round
       </button>
       <player-details :initial="player" />
+      <playlist-selection />
     </div>
 
     <div class="grid grid-cols-12 gap-2 h-50">
@@ -52,6 +53,7 @@ import GuessForm from "./components/GuessForm.vue";
 import PlayerList from "./components/PlayerList.vue";
 import SpotifyLogin from "./components/SpotifyLogin.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
+import PlaylistSelection from "./components/PlaylistSelection.vue";
 
 import { defineComponent, PropType } from "vue";
 import { AxiosError, AxiosResponse } from "axios";
@@ -67,6 +69,7 @@ export default defineComponent({
     PlayerList,
     SpotifyLogin,
     PlayerDetails,
+    PlaylistSelection,
   },
   data(): { title: string; round: Round | null } {
     return {

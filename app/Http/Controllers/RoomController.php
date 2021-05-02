@@ -24,6 +24,7 @@ class RoomController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
@@ -53,5 +54,25 @@ class RoomController extends Controller
                     'player' => (new Player($player))->toJson(),
                 ],
             );
+    }
+
+    /**
+     * Update the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Room  $room
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, Room $room)
+    {
+        $this->authorize('update', $room);
+
+        $request->validate([
+            'playlists' => 'required|array',
+            'playlists.*' => 'string',
+        ]);
+
+        // Fetch tracks from spotify api
+        return response()->json();
     }
 }
