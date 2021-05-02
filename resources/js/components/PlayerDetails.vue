@@ -24,13 +24,13 @@ export default defineComponent({
       required: true,
     },
   },
-  data() {
+  data(): { player: Player } {
     return {
       player: { ...this.initial },
     };
   },
   methods: {
-    submit() {
+    submit(): void {
       window.axios
         .patch(`/players/${this.player.id}`, this.player)
         .then((response: AxiosResponse) => (this.player = response.data.data))

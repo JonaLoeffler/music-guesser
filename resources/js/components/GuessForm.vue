@@ -44,7 +44,7 @@ export default defineComponent({
     };
   },
   methods: {
-    submit() {
+    submit(): void {
       if (this.round) {
         window.axios
           .post(`/rounds/${this.round.id}/guesses`, this.guess)
@@ -57,7 +57,7 @@ export default defineComponent({
       }
     },
   },
-  mounted() {
+  mounted(): void {
     window.Echo.join(this.channel).listen(
       "RoundStarted",
       (round: Round) => (this.round = round)

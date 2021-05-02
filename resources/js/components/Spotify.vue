@@ -53,7 +53,7 @@ export default defineComponent({
       });
     },
   },
-  mounted() {
+  mounted(): void {
     // @ts-ignore: Provided by Spotify CDN
     window.onSpotifyWebPlaybackSDKReady = () => {
       // @ts-ignore: Provided by Spotify CDN

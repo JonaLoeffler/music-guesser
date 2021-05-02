@@ -39,7 +39,7 @@ export default defineComponent({
       guesses: [],
     };
   },
-  mounted() {
+  mounted(): void {
     window.Echo.join(this.channel).listen("GuessReceived", (guess: Guess) => {
       if (guess.player.id === this.player.id || guess.status != "correct") {
         this.guesses.push(guess);

@@ -46,7 +46,7 @@ export default defineComponent({
     };
   },
   computed: {
-    sorted: function (): Player[] {
+    sorted(): Player[] {
       return this.players.slice().sort((a: Player, b: Player) => {
         if (a.score > 0 && b.score > 0) {
           return b.score - a.score;
@@ -58,7 +58,7 @@ export default defineComponent({
       });
     },
   },
-  mounted() {
+  mounted(): void {
     window.Echo.join(this.channel)
       .here((players: Player[]) => {
         this.players = players;
