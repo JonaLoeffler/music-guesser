@@ -28,4 +28,9 @@ class Room extends Model
     {
         return $this->hasMany(Round::class);
     }
+
+    public function tracks()
+    {
+        return $this->hasMany(Tracks::class);
+    }
 }

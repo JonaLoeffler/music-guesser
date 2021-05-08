@@ -35,6 +35,10 @@ class RoundController extends Controller
             'spotify_track_name' => $track['name'],
         ]);
 
+        $round->track()->save(
+            $room->tracks()->inRandomOrder()->first()
+        );
+
         return new RoundResource($round);
     }
 

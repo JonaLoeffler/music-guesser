@@ -16,6 +16,8 @@ class CreateTracksTable extends Migration
         Schema::create('tracks', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('room_id');
+
             $table->string('title');
             $table->string('artist');
             $table->string('spotify_uri');

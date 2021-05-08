@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Player;
+use App\Models\Room;
 use App\Models\Track;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -37,11 +38,12 @@ class TrackPolicy
      * Determine whether the user can create models.
      *
      * @param  \App\Models\Player  $player
+     * @param  \App\Models\Room  $room
      * @return mixed
      */
-    public function create(Player $player)
+    public function create(Player $player, Room $room)
     {
-        //
+        return $player->is($room->creator);
     }
 
     /**

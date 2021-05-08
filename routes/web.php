@@ -31,8 +31,7 @@ Route::middleware('auth:web')->group(function () {
     Route::middleware('response.json')->group(function () {
         Route::apiResource('players', PlayerController::class)->only('update');
 
-        Route::apiResource('tracks', TrackController::class)->only('store');
-
+        Route::apiResource('rooms.tracks', TrackController::class)->only('store');
         Route::apiResource('rooms.rounds', RoundController::class)->only('store', 'update');
         Route::apiREsource('rounds.guesses', GuessController::class)->only('store');
     });

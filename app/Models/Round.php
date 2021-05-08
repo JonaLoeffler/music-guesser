@@ -49,6 +49,11 @@ class Round extends Model
         return $this->belongsTo(Room::class);
     }
 
+    public function track()
+    {
+        return $this->hasOne(Track::class);
+    }
+
     public function guesses()
     {
         return  $this->hasMany(Guess::class);
