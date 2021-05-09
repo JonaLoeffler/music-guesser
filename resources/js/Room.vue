@@ -9,11 +9,18 @@
       >
         Start round
       </button>
-      <player-details :initial="player" />
-      <overlay>
-        <template v-slot:title>Your Playlists</template>
-        <playlist-selection :player="player" :room="room"/>
-      </overlay>
+
+      <div class="flex flex-row">
+        <overlay class="mr-1">
+          <template v-slot:title>{{ player.name }}</template>
+          <player-details :initial="player" />
+        </overlay>
+
+        <overlay>
+          <template v-slot:title>Your Playlists</template>
+          <playlist-selection :player="player" :room="room" />
+        </overlay>
+      </div>
     </div>
 
     <div class="grid grid-cols-12 gap-2 h-50">

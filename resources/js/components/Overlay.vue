@@ -1,11 +1,7 @@
 <template>
   <div>
-    <button
-      class="btn btn-primary"
-      type="button"
-      v-on:click="toggle()"
-    >
-      Open large modal
+    <button class="btn btn-primary" type="button" v-on:click="toggle()">
+      <slot name="title" />
     </button>
     <div
       v-if="show"
