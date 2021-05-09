@@ -6,7 +6,7 @@ use App\Http\Resources\Round as RoundResource;
 use App\Models\Guess;
 use App\Models\Room;
 use App\Models\Round;
-
+use App\Models\Track;
 use App\Services\Spotify\Facades\Spotify;
 
 use Illuminate\Http\Request;
@@ -17,27 +17,19 @@ class RoundController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \App\Http\Resources\Round
+     * @return \App\Http\Resources\Round|\Illuminate\Http\JsonResponse
      */
     public function store(Request $request, Room $room)
     {
         $this->authorize('create', [Round::class, $room]);
 
-        $response = Spotify::playlist(
-            $room->spotify_playlist_uri,
-            $request->user()->spotify_access_token
-        );
+        if (($track = Track::for($room)->next()) === null) {
+            return response()->json(['message' => "No tracks for room"], 401);
+        }
 
-        $track = collect($response['tracks']['items'])->map->track->random();
-
-        $round = $room->rounds()->create([
-            'spotify_track_uri' => $track['uri'],
-            'spotify_track_name' => $track['name'],
-        ]);
-
-        $round->track()->save(
-            $room->tracks()->inRandomOrder()->first()
-        );
+        $round = $room->rounds()->make();
+        $round->track_id = $track->id;
+        $round->save();
 
         return new RoundResource($round);
     }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Round;
+use App\Models\Track;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RoundFactory extends Factory
@@ -23,6 +24,7 @@ class RoundFactory extends Factory
     {
         return [
             'number' => $this->faker->randomNumber(1),
+            'track_id' => Track::factory(),
         ];
     }
 }

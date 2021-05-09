@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Room;
 use App\Models\Track;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,9 +23,9 @@ class TrackFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->words(3, true),
-            'artist' => $this->faker->name,
-            'spotify_uri' => $this->faker->uuid,
+            'room_id' => Room::factory(),
+            'name' => $this->faker->words(3, true),
+            'uri' => $this->faker->uuid,
         ];
     }
 }

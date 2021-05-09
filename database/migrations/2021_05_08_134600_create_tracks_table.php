@@ -16,11 +16,11 @@ class CreateTracksTable extends Migration
         Schema::create('tracks', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('room_id');
+            $table->string('room_id');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
 
-            $table->string('title');
-            $table->string('artist');
-            $table->string('spotify_uri');
+            $table->string('name');
+            $table->string('uri');
 
             $table->timestamps();
         });

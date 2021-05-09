@@ -41,8 +41,7 @@ export default defineComponent({
 
       const delay = new Date(fresh.playback_at).getTime() - Date.now();
 
-      if (delay > 0)
-        setTimeout(() => this.play(fresh.spotify_track_uri), delay);
+      if (delay > 0) setTimeout(() => this.play(fresh.track.uri), delay);
     },
   },
   methods: {

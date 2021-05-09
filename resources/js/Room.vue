@@ -12,7 +12,7 @@
       <player-details :initial="player" />
       <overlay>
         <template v-slot:title>Your Playlists</template>
-        <playlist-selection :player="player" />
+        <playlist-selection :player="player" :room="room"/>
       </overlay>
     </div>
 

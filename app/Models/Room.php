@@ -31,6 +31,6 @@ class Room extends Model
 
     public function tracks()
     {
-        return $this->hasMany(Tracks::class);
+        return $this->hasMany(Track::class);
     }
 }

@@ -1,25 +1,27 @@
 <template>
   <form @submit.prevent method="post">
-    <ul>
-      <li
-        v-for="(playlist, index) in playlists"
-        v-bind:key="playlist.id"
-        class="py-2 px-5"
-        :class="{
-          'bg-green-100': index % 2 == 0,
-          'bg-green-200': index % 2 == 1,
-        }"
-      >
-        <input
-          type="checkbox"
-          :name="playlist.uri"
-          class="pr-3"
-          v-model="selected"
-          :value="playlist.uri"
-        />
+    <label
+      :for="'radio-' + playlist.id"
+      v-for="(playlist, index) in playlists"
+      v-bind:key="playlist.id"
+      class="flex items-center py-2 px-5"
+      :class="{
+        'bg-green-100': index % 2 == 0,
+        'bg-green-200': index % 2 == 1,
+      }"
+    >
+      <input
+        type="radio"
+        :id="'radio-' + playlist.id"
+        :name="'radio-' + playlist.id"
+        class="pr-3"
+        v-model="selected"
+        :value="playlist.uri"
+      />
+      <span>
         {{ playlist.name }}
-      </li>
-    </ul>
+      </span>
+    </label>
     <button
       type="submit"
       @click="submit"
@@ -31,6 +33,7 @@
 </template>
 
 <script lang="ts">
+import Room from "../models/Room";
 import Player from "../models/Player";
 import Overlay from "../components/Overlay.vue";
 import { defineComponent, PropType } from "vue";
@@ -48,22 +51,26 @@ export default defineComponent({
     Overlay,
   },
   props: {
+    room: {
+      type: Object as PropType<Room>,
+      required: true,
+    },
     player: {
       type: Object as PropType<Player>,
       required: true,
     },
   },
-  data(): { loading: boolean; playlists: Playlist[]; selected: string[] } {
+  data(): { loading: boolean; playlists: Playlist[]; selected: string | null } {
     return {
       loading: false,
       playlists: [],
-      selected: [],
+      selected: null,
     };
   },
   methods: {
     submit() {
       window.axios
-        .post(`/rooms/${this.room.id}/tracks`, { playlist_uris: this.selected })
+        .post(`/rooms/${this.room.id}/tracks`, { playlist_uri: this.selected })
         .then((response: AxiosResponse) => {})
         .catch((error: AxiosError) => console.log(error));
     },
