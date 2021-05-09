@@ -28,7 +28,7 @@ class GuessController extends Controller
         $guess = $round->guesses()->create([
             'player_id' => $request->user()->id,
             'track' => $request->track,
-            'status' => strtolower($request->track) == strtolower($round->spotify_track_name)
+            'status' => strtolower($request->track) == strtolower($round->track->name)
                 ? Guess::CORRECT
                 : Guess::WRONG,
         ]);
