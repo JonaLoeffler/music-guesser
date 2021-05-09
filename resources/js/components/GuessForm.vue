@@ -13,7 +13,7 @@
       <button
         type="submit"
         @click="submit"
-        class="btn bg-pink-400 disabled:opacity-50"
+        class="btn btn-primary disabled:opacity-50"
         :disabled="this.round === null"
       >
         Send!
