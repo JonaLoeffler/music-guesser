@@ -20,6 +20,10 @@ export default defineComponent({
       return config.spotify.authorize_url + this.params;
     },
     params(): URLSearchParams {
+      if (!config.spotify.client_id) {
+        throw new Error("Missing configuration value");
+      }
+
       return new URLSearchParams({
         client_id: config.spotify.client_id,
         response_type: "code",
