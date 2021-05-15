@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Round
  *
  * @property Room $room
+ * @property Track $track
  */
 class Round extends Model
 {
