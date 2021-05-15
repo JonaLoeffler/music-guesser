@@ -11,20 +11,22 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "SpotifyLogin",
   methods: {
-    login() {
-      const url =
-        config.spotify.authorize_url +
-        new URLSearchParams({
-          client_id: config.spotify.client_id,
-          response_type: "code",
-          redirect_uri: `${window.location.origin}/callback/spotify`,
-          state: window.location.pathname,
-          scope: ["streaming", "user-read-email", "user-read-private"].join(
-            " "
-          ),
-        });
-
-      window.location.replace(url);
+    login(): void {
+      window.location.replace(this.url);
+    },
+  },
+  computed: {
+    url(): string {
+      return config.spotify.authorize_url + this.params;
+    },
+    params(): URLSearchParams {
+      return new URLSearchParams({
+        client_id: config.spotify.client_id,
+        response_type: "code",
+        redirect_uri: `${window.location.origin}/callback/spotify`,
+        state: window.location.pathname,
+        scope: ["streaming", "user-read-email", "user-read-private"].join(" "),
+      });
     },
   },
 });

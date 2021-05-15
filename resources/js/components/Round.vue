@@ -22,7 +22,7 @@ export default defineComponent({
       round: null,
     };
   },
-  mounted() {
+  mounted():void {
     window.Echo.join(this.channel).listen("RoundStarted", (round: Round) => {
       this.round = round;
 

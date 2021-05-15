@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Round;
+use App\Models\Room;
 use App\Models\Track;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RoundFactory extends Factory
+class TrackFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Round::class;
+    protected $model = Track::class;
 
     /**
      * Define the model's default state.
@@ -23,8 +23,9 @@ class RoundFactory extends Factory
     public function definition()
     {
         return [
-            'number' => $this->faker->randomNumber(1),
-            'track_id' => Track::factory(),
+            'room_id' => Room::factory(),
+            'name' => $this->faker->words(3, true),
+            'uri' => $this->faker->uuid,
         ];
     }
 }

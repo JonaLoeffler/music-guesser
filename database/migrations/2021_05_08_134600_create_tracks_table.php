@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoomsTable extends Migration
+class CreateTracksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,14 @@ class CreateRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rooms', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::create('tracks', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('room_id');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+
+            $table->string('name');
+            $table->string('uri');
 
             $table->timestamps();
         });
@@ -27,6 +33,6 @@ class CreateRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('tracks');
     }
 }
