@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto pt-2 h-screen">
     <div class="card flex justify-between mb-2">
-      <h1 class="text-2xl mx-2">{{ title }}</h1>
+      <h1 class="text-2xl my-auto mx-4">{{ title }}</h1>
       <button
         class="btn btn-primary"
         @click="start"
