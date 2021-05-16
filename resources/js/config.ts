@@ -15,7 +15,7 @@ const config: Config = {
         duration: 4000,
     },
     spotify: {
-        client_id: process.env.SPOTIFY_CLIENT_ID,
+        client_id: process.env.MIX_SPOTIFY_CLIENT_ID,
         authorize_url: "https://accounts.spotify.com/authorize?",
     }
 }

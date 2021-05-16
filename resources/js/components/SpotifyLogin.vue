@@ -21,7 +21,7 @@ export default defineComponent({
     },
     params(): URLSearchParams {
       if (!config.spotify.client_id) {
-        throw new Error("Missing configuration value");
+        throw new Error("Missing Spotify client ID");
       }
 
       return new URLSearchParams({
