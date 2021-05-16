@@ -8,6 +8,7 @@
 </template>
 
 <script lang="ts">
+import __ from "../lang";
 import Room from "../models/Room";
 import Playlist from "../models/Spotify/Playlist";
 import { AxiosError, AxiosResponse } from "axios";
@@ -27,10 +28,11 @@ export default defineComponent({
   },
   data(): { text: string } {
     return {
-      text: "Add",
+      text: __("Add"),
     };
   },
   methods: {
+    __: __,
     submit() {
       this.text = "...";
       window.axios
@@ -38,10 +40,10 @@ export default defineComponent({
           playlist_uri: this.playlist.uri,
         })
         .then((response: AxiosResponse) => {
-          this.text = "Done.";
+          this.text = __("Done");
         })
         .catch((error: AxiosError) => {
-          this.text = "Error.";
+          this.text = __("Error");
         });
     },
   },

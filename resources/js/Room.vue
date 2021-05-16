@@ -7,7 +7,7 @@
         @click="start"
         v-if="player.spotify_access_token && player.is_creator && !this.round"
       >
-        Start round
+        {{ __("Start round") }}
       </button>
 
       <div class="flex flex-row">
@@ -17,7 +17,7 @@
         </overlay>
 
         <overlay>
-          <template v-slot:title>Your Playlists</template>
+          <template v-slot:title>{{ __("Select Songs") }}</template>
           <playlist-selection :player="player" :room="room" />
         </overlay>
       </div>
@@ -52,6 +52,7 @@
 </template>
 
 <script lang="ts">
+import __ from "./lang";
 import config from "./config";
 import Room from "./models/Room";
 import Player from "./models/Player";
@@ -100,6 +101,7 @@ export default defineComponent({
     },
   },
   methods: {
+    __: __,
     start(): void {
       window.axios
         .post(`/rooms/${this.room.id}/rounds`)

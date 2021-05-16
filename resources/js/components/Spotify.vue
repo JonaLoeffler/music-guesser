@@ -2,18 +2,19 @@
   <div class="flex h-80">
     <div class="m-auto">
       <countdown v-if="round" :date="new Date(round.playback_at)">
-        Playback starts in:
+        {{ __("Playback starts in") }}:
       </countdown>
       <br />
 
       <countdown v-if="round" :date="new Date(round.completes_at)">
-        Round ends in:
+        {{ __("Round ends in") }}:
       </countdown>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import __ from "../lang";
 import config from "../config";
 import Round from "../models/Round";
 import Countdown from "./Countdown.vue";
@@ -45,6 +46,7 @@ export default defineComponent({
     },
   },
   methods: {
+    __: __,
     play(uri: String) {
       SpotifyApi.play({
         playerInstance: window.Player,
