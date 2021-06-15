@@ -5,7 +5,7 @@
         type="text"
         name="track"
         id="input_track"
-        placeholder="Track Name"
+        :placeholder="__('Track name')"
         v-model="guess.track"
         class="text-center text-3xl flex-grow"
         autofocus
@@ -13,16 +13,17 @@
       <button
         type="submit"
         @click="submit"
-        class="btn bg-pink-400 disabled:opacity-50"
+        class="btn btn-primary disabled:opacity-50"
         :disabled="this.round === null"
       >
-        Send!
+        {{ __("Send!") }}
       </button>
     </div>
   </form>
 </template>
 
 <script lang="ts">
+import __ from "../lang";
 import Round from "../models/Round";
 import { defineComponent } from "vue";
 import { AxiosError, AxiosResponse } from "axios";
@@ -44,7 +45,8 @@ export default defineComponent({
     };
   },
   methods: {
-    submit() {
+    __: __,
+    submit(): void {
       if (this.round) {
         window.axios
           .post(`/rounds/${this.round.id}/guesses`, this.guess)
@@ -57,7 +59,7 @@ export default defineComponent({
       }
     },
   },
-  mounted() {
+  mounted(): void {
     window.Echo.join(this.channel).listen(
       "RoundStarted",
       (round: Round) => (this.round = round)

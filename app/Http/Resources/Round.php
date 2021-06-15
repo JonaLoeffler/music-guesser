@@ -17,12 +17,12 @@ class Round extends JsonResource
         return [
             'id' => $this->id,
             'number' => $this->number,
-            'spotify_track_uri' => $this->spotify_track_uri,
-            'spotify_track_name' => $this->spotify_track_name,
+            'track' => new Track($this->track),
             'playback_at' => $this->playback_at,
             'completes_at' => $this->completes_at,
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
+
         ];
     }
 }

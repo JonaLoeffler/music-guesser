@@ -1,16 +1,26 @@
 <template>
   <div class="container mx-auto pt-2 h-screen">
     <div class="card flex justify-between mb-2">
-      <h1 class="text-2xl mx-2">{{ title }}</h1>
+      <h1 class="text-2xl my-auto mx-4">{{ title }}</h1>
       <button
         class="btn btn-primary"
         @click="start"
         v-if="player.spotify_access_token && player.is_creator && !this.round"
       >
-        Start round
+        {{ __("Start round") }}
       </button>
-      <player-details :initial="player" />
-      <playlist-selection />
+
+      <div class="flex flex-row">
+        <overlay class="mr-1">
+          <template v-slot:title>{{ player.name }}</template>
+          <player-details :initial="player" />
+        </overlay>
+
+        <overlay>
+          <template v-slot:title>{{ __("Select Songs") }}</template>
+          <playlist-selection :player="player" :room="room" />
+        </overlay>
+      </div>
     </div>
 
     <div class="grid grid-cols-12 gap-2 h-50">
@@ -42,12 +52,14 @@
 </template>
 
 <script lang="ts">
+import __ from "./lang";
 import config from "./config";
 import Room from "./models/Room";
 import Player from "./models/Player";
 
 import Info from "./components/Round.vue";
 import Spotify from "./components/Spotify.vue";
+import Overlay from "./components/Overlay.vue";
 import Timeline from "./components/Timeline.vue";
 import GuessForm from "./components/GuessForm.vue";
 import PlayerList from "./components/PlayerList.vue";
@@ -64,6 +76,7 @@ export default defineComponent({
   components: {
     Info,
     Spotify,
+    Overlay,
     Timeline,
     GuessForm,
     PlayerList,
@@ -88,13 +101,14 @@ export default defineComponent({
     },
   },
   methods: {
-    start() {
+    __: __,
+    start(): void {
       window.axios
         .post(`/rooms/${this.room.id}/rounds`)
         .then((response: AxiosResponse) => (this.round = response.data.data))
         .catch((error: AxiosError) => console.log(error));
     },
-    finish() {
+    finish(): void {
       if (this.round) {
         window.axios
           .put(`/rooms/${this.room.id}/rounds/${this.round.id}`)
@@ -103,7 +117,7 @@ export default defineComponent({
       }
     },
   },
-  mounted() {
+  mounted(): void {
     window.Echo.join(this.channel).listen("RoundStarted", (round: Round) => {
       this.round = round;
 
@@ -114,7 +128,7 @@ export default defineComponent({
     });
   },
   computed: {
-    channel: function (): string {
+    channel(): string {
       return `room.${this.room.id}`;
     },
   },

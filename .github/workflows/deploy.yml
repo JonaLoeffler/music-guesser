@@ -9,6 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
+      SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
       MIX_PUSHER_APP_KEY: ${{ secrets.MIX_PUSHER_APP_KEY }}
       MIX_PUSHER_APP_CLUSTER: ${{ secrets.MIX_PUSHER_APP_CLUSTER }}
     steps:

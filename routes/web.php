@@ -5,6 +5,7 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoundController;
 use App\Http\Controllers\SpotifyController;
+use App\Http\Controllers\TrackController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,7 @@ Route::middleware('auth:web')->group(function () {
     Route::middleware('response.json')->group(function () {
         Route::apiResource('players', PlayerController::class)->only('update');
 
+        Route::apiResource('rooms.tracks', TrackController::class)->only('store');
         Route::apiResource('rooms.rounds', RoundController::class)->only('store', 'update');
         Route::apiREsource('rounds.guesses', GuessController::class)->only('store');
     });

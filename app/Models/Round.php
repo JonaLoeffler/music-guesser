@@ -10,20 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Round
  *
  * @property Room $room
+ * @property Track $track
  */
 class Round extends Model
 {
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $fillable = [
-        'spotify_track_uri',
-        'spotify_track_name',
-    ];
 
     /**
      * Perform any actions required after the model boots.
@@ -47,6 +38,11 @@ class Round extends Model
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function track()
+    {
+        return $this->belongsTo(Track::class);
     }
 
     public function guesses()

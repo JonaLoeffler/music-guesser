@@ -12,15 +12,16 @@
       <div class="ml-3">
         <div>
           <span class="font-bold text-lg">{{ player.name }}</span>
-          <span v-if="player.id === user.id"> (You)</span>
+          <span v-if="player.id === user.id"> ({{ __("You") }})</span>
         </div>
-        {{ Math.round(player.score) }} Punkte
+        {{ Math.round(player.score) }} {{ __("points") }}
       </div>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
+import __ from "../lang";
 import Player from "../models/Player";
 import { defineComponent, PropType } from "vue";
 
@@ -46,7 +47,7 @@ export default defineComponent({
     };
   },
   computed: {
-    sorted: function (): Player[] {
+    sorted(): Player[] {
       return this.players.slice().sort((a: Player, b: Player) => {
         if (a.score > 0 && b.score > 0) {
           return b.score - a.score;
@@ -58,7 +59,7 @@ export default defineComponent({
       });
     },
   },
-  mounted() {
+  mounted(): void {
     window.Echo.join(this.channel)
       .here((players: Player[]) => {
         this.players = players;
@@ -74,6 +75,9 @@ export default defineComponent({
 
         this.players.push(player);
       });
+  },
+  methods: {
+    __: __,
   },
 });
 </script>

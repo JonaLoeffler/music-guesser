@@ -2,7 +2,7 @@ interface Config {
     app: { name: string },
     playback: { duration: number }
     spotify: {
-        client_id: string,
+        client_id: string | undefined,
         authorize_url: string,
     }
 };
@@ -15,7 +15,7 @@ const config: Config = {
         duration: 4000,
     },
     spotify: {
-        client_id: "dda4c90684cd45dc85329402cbefbcd8",
+        client_id: process.env.MIX_SPOTIFY_CLIENT_ID,
         authorize_url: "https://accounts.spotify.com/authorize?",
     }
 }

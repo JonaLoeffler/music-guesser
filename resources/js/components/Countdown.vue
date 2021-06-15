@@ -20,21 +20,21 @@ export default defineComponent({
     };
   },
   computed: {
-    remaining: function (): number {
+    remaining(): number {
       return Math.floor((this.date.getTime() - this.now.getTime()) / 1000);
     },
-    countdown: function (): number {
+    countdown(): number {
       return Math.max(this.remaining, 0);
     },
   },
   watch: {
-    remaining: function (fresh: number, old: number) {
+    remaining(fresh: number, old: number): void {
       if (fresh < 0 && old === 0) {
         this.$emit("done");
       }
     },
   },
-  mounted() {
+  mounted(): void {
     window.setInterval(() => {
       this.now = new Date();
     }, 1000);
