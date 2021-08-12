@@ -9,7 +9,6 @@
 
 <script lang="ts">
 import __ from "../lang";
-import Room from "../models/Room";
 import Playlist from "../models/Spotify/Playlist";
 import { AxiosError, AxiosResponse } from "axios";
 import { defineComponent, PropType } from "vue";
@@ -18,7 +17,7 @@ export default defineComponent({
   name: "AddPlaylist",
   props: {
     room: {
-      type: Object as PropType<Room>,
+      type: Object as PropType<App.Models.Room>,
       required: true,
     },
     playlist: {

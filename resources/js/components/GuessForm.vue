@@ -24,7 +24,6 @@
 
 <script lang="ts">
 import __ from "../lang";
-import Round from "../models/Round";
 import { defineComponent } from "vue";
 import { AxiosError, AxiosResponse } from "axios";
 
@@ -36,7 +35,7 @@ export default defineComponent({
       required: true,
     },
   },
-  data(): { guess: { track: string }; round: Round | null } {
+  data(): { guess: { track: string }; round: App.Models.Round | null } {
     return {
       guess: {
         track: "",
@@ -62,7 +61,7 @@ export default defineComponent({
   mounted(): void {
     window.Echo.join(this.channel).listen(
       "RoundStarted",
-      (round: Round) => (this.round = round)
+      (round: App.Models.Round) => (this.round = round)
     );
   },
 });

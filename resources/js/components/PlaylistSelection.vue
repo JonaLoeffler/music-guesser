@@ -12,8 +12,6 @@
 </template>
 
 <script lang="ts">
-import Room from "../models/Room";
-import Player from "../models/Player";
 import Playlist from "../models/Spotify/Playlist";
 import AddPlaylist from "../components/AddPlaylist.vue";
 import { defineComponent, PropType } from "vue";
@@ -25,11 +23,11 @@ export default defineComponent({
   },
   props: {
     room: {
-      type: Object as PropType<Room>,
+      type: Object as PropType<App.Models.Room>,
       required: true,
     },
     player: {
-      type: Object as PropType<Player>,
+      type: Object as PropType<App.Models.Player>,
       required: true,
     },
   },

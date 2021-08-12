@@ -7,7 +7,6 @@
 
 <script lang="ts">
 import __ from "../lang";
-import Round from "../models/Round";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -18,13 +17,13 @@ export default defineComponent({
       required: true,
     },
   },
-  data(): { round: Round | null } {
+  data(): { round: App.Models.Round | null } {
     return {
       round: null,
     };
   },
   mounted(): void {
-    window.Echo.join(this.channel).listen("RoundStarted", (round: Round) => {
+    window.Echo.join(this.channel).listen("RoundStarted", (round: App.Models.Round) => {
       this.round = round;
 
       setTimeout(

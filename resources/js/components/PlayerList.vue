@@ -22,18 +22,17 @@
 
 <script lang="ts">
 import __ from "../lang";
-import Player from "../models/Player";
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "PlayerList",
   props: {
     user: {
-      type: Object as PropType<Player[]>,
+      type: Object as PropType<App.Models.Player[]>,
       required: true,
     },
     initial: {
-      type: Object as PropType<Player[]>,
+      type: Object as PropType<App.Models.Player[]>,
       required: true,
     },
     channel: {
@@ -41,36 +40,38 @@ export default defineComponent({
       required: true,
     },
   },
-  data(): { players: Player[] } {
+  data(): { players: App.Models.Player[] } {
     return {
       players: this.initial,
     };
   },
   computed: {
-    sorted(): Player[] {
-      return this.players.slice().sort((a: Player, b: Player) => {
-        if (a.score > 0 && b.score > 0) {
-          return b.score - a.score;
-        }
+    sorted(): App.Models.Player[] {
+      return this.players
+        .slice()
+        .sort((a: App.Models.Player, b: App.Models.Player) => {
+          if (a.score > 0 && b.score > 0) {
+            return b.score - a.score;
+          }
 
-        return (
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-        );
-      });
+          return (
+            new Date(a.created_at!).getTime() - new Date(b.created_at!).getTime()
+          );
+        });
     },
   },
   mounted(): void {
     window.Echo.join(this.channel)
-      .here((players: Player[]) => {
+      .here((players: App.Models.Player[]) => {
         this.players = players;
       })
-      .joining((player: Player) => {
+      .joining((player: App.Models.Player) => {
         this.players.push(player);
       })
-      .leaving((player: Player) => {
+      .leaving((player: App.Models.Player) => {
         this.players = this.players.filter((p) => p.id !== player.id);
       })
-      .listen("PlayerUpdated", (player: Player) => {
+      .listen("PlayerUpdated", (player: App.Models.Player) => {
         this.players = this.players.filter((p) => p.id !== player.id);
 
         this.players.push(player);
