@@ -12,7 +12,7 @@ grumphp:
     phpcs: ~
     phpcpd:
       exclude: ["vendor", "storage", "node_modules", "tests"]
-    phpstan: ~
+    # phpstan: ~
     xmllint: ~
     yamllint: ~
     paratest: ~

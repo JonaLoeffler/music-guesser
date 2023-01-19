@@ -5,7 +5,7 @@
       <button
         class="btn btn-primary"
         @click="start"
-        v-if="player.spotify_access_token && player.is_creator && !this.round"
+        v-if="player.spotify_access_token && player.is_creator && !round"
       >
         {{ __("Start round") }}
       </button>
