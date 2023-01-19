@@ -7,29 +7,30 @@
       v-model="player.name"
     />
     <button type="submit" @click="submit" class="btn btn-primary">
-      Speichern
+      {{ __("Save") }}
     </button>
   </form>
 </template>
 
 <script lang="ts">
-import Player from "../models/Player";
+import __ from "../lang";
 import { defineComponent, PropType } from "vue";
 import { AxiosResponse, AxiosError } from "axios";
 
 export default defineComponent({
   props: {
     initial: {
-      type: Object as PropType<Player>,
+      type: Object as PropType<App.Models.Player>,
       required: true,
     },
   },
-  data(): { player: Player } {
+  data(): { player: App.Models.Player } {
     return {
       player: { ...this.initial },
     };
   },
   methods: {
+    __: __,
     submit(): void {
       window.axios
         .patch(`/players/${this.player.id}`, this.player)

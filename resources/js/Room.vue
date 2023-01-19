@@ -1,13 +1,13 @@
 <template>
   <div class="container mx-auto pt-2 h-screen">
     <div class="card flex justify-between mb-2">
-      <h1 class="text-2xl mx-2">{{ title }}</h1>
+      <h1 class="text-2xl my-auto mx-4">{{ title }}</h1>
       <button
         class="btn btn-primary"
         @click="start"
-        v-if="player.spotify_access_token && player.is_creator && !this.round"
+        v-if="player.spotify_access_token && player.is_creator && !round"
       >
-        Start round
+        {{ __("Start round") }}
       </button>
 
       <div class="flex flex-row">
@@ -17,7 +17,7 @@
         </overlay>
 
         <overlay>
-          <template v-slot:title>Your Playlists</template>
+          <template v-slot:title>{{ __("Select Songs") }}</template>
           <playlist-selection :player="player" :room="room" />
         </overlay>
       </div>
@@ -52,9 +52,8 @@
 </template>
 
 <script lang="ts">
+import __ from "./lang";
 import config from "./config";
-import Room from "./models/Room";
-import Player from "./models/Player";
 
 import Info from "./components/Round.vue";
 import Spotify from "./components/Spotify.vue";
@@ -68,7 +67,6 @@ import PlaylistSelection from "./components/PlaylistSelection.vue";
 
 import { defineComponent, PropType } from "vue";
 import { AxiosError, AxiosResponse } from "axios";
-import Round from "./models/Round";
 
 export default defineComponent({
   name: "Room",
@@ -83,7 +81,7 @@ export default defineComponent({
     PlayerDetails,
     PlaylistSelection,
   },
-  data(): { title: string; round: Round | null } {
+  data(): { title: string; round: App.Models.Round | null } {
     return {
       title: config.app.name,
       round: null,
@@ -91,15 +89,16 @@ export default defineComponent({
   },
   props: {
     room: {
-      type: Object as PropType<Room>,
+      type: Object as PropType<App.Models.Room>,
       required: true,
     },
     player: {
-      type: Object as PropType<Player>,
+      type: Object as PropType<App.Models.Player>,
       required: true,
     },
   },
   methods: {
+    __: __,
     start(): void {
       window.axios
         .post(`/rooms/${this.room.id}/rounds`)
@@ -116,7 +115,7 @@ export default defineComponent({
     },
   },
   mounted(): void {
-    window.Echo.join(this.channel).listen("RoundStarted", (round: Round) => {
+    window.Echo.join(this.channel).listen("RoundStarted", (round: App.Models.Round) => {
       this.round = round;
 
       setTimeout(

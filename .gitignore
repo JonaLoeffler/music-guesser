@@ -3,9 +3,9 @@
 /public/storage
 /public/css
 /public/js
+/public/coverage
 /storage/*.key
 /vendor
-/coverage
 .env
 .env.backup
 .phpunit.result.cache

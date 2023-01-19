@@ -1,0 +1,151 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^PHPDoc type array of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash\\.$#"
+			count: 1
+			path: app/Exceptions/Handler.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontReport is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontReport\\.$#"
+			count: 1
+			path: app/Exceptions/Handler.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Guess\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Guess.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Guess\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Resources/Guess.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Guess\\:\\:\\$player\\.$#"
+			count: 1
+			path: app/Http/Resources/Guess.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Guess\\:\\:\\$round\\.$#"
+			count: 1
+			path: app/Http/Resources/Guess.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Guess\\:\\:\\$status\\.$#"
+			count: 1
+			path: app/Http/Resources/Guess.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Guess\\:\\:\\$track\\.$#"
+			count: 1
+			path: app/Http/Resources/Guess.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Guess\\:\\:\\$updated_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Guess.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Player\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Player.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Player\\:\\:\\$id\\.$#"
+			count: 2
+			path: app/Http/Resources/Player.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Player\\:\\:\\$is_creator\\.$#"
+			count: 1
+			path: app/Http/Resources/Player.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Player\\:\\:\\$name\\.$#"
+			count: 1
+			path: app/Http/Resources/Player.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Player\\:\\:\\$score\\.$#"
+			count: 1
+			path: app/Http/Resources/Player.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Player\\:\\:\\$spotify_access_token\\.$#"
+			count: 1
+			path: app/Http/Resources/Player.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Player\\:\\:\\$updated_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Player.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Room\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Room.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Room\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Resources/Room.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Room\\:\\:\\$updated_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Room.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Round\\:\\:\\$completes_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Round.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Round\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Round.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Round\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Resources/Round.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Round\\:\\:\\$number\\.$#"
+			count: 1
+			path: app/Http/Resources/Round.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Round\\:\\:\\$playback_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Round.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Round\\:\\:\\$track\\.$#"
+			count: 1
+			path: app/Http/Resources/Round.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Round\\:\\:\\$updated_at\\.$#"
+			count: 1
+			path: app/Http/Resources/Round.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Track\\:\\:\\$name\\.$#"
+			count: 1
+			path: app/Http/Resources/Track.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Track\\:\\:\\$uri\\.$#"
+			count: 1
+			path: app/Http/Resources/Track.php
+
+		-
+			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
+			count: 1
+			path: app/Providers/RouteServiceProvider.php
+
+		-
+			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+			count: 1
+			path: app/Providers/RouteServiceProvider.php

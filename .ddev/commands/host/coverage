@@ -2,8 +2,8 @@
 
 ddev xdebug on
 
-ddev exec "export XDEBUG_MODE=coverage; phpunit --coverage-html coverage --path-coverage"
+ddev exec "export XDEBUG_MODE=coverage; phpunit --coverage-html public/coverage --path-coverage"
 
 ddev xdebug off
 
-xdg-open coverage/index.html
+ddev launch /coverage/index.html

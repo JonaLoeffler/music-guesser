@@ -7,10 +7,10 @@
       :class="{ 'bg-green-200': index % 2 == 0 }"
     >
       <span v-if="guess.status === 'correct'" class="text-green-500">
-        {{ guess.track }} was correct!
+        {{ guess.track }} {{ __("was correct!") }}
       </span>
       <span v-else-if="guess.status === 'close'" class="text-orange-300">
-        {{ guess.track }} was close!
+        {{ guess.track }} {{ __("was close!") }}
       </span>
       <span v-else>{{ guess.player.name }}: {{ guess.track }}</span>
     </li>
@@ -18,8 +18,7 @@
 </template>
 
 <script lang="ts">
-import Guess from "../models/Guess";
-import Player from "../models/Player";
+import __ from "../lang";
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
@@ -30,23 +29,29 @@ export default defineComponent({
       required: true,
     },
     player: {
-      type: Object as PropType<Player>,
+      type: Object as PropType<App.Models.Player>,
       required: true,
     },
   },
-  data(): { guesses: Guess[] } {
+  data(): { guesses: App.Models.Guess[] } {
     return {
       guesses: [],
     };
   },
   mounted(): void {
-    window.Echo.join(this.channel).listen("GuessReceived", (guess: Guess) => {
-      if (guess.player.id === this.player.id || guess.status != "correct") {
-        this.guesses.push(guess);
-      }
+    window.Echo.join(this.channel).listen(
+      "GuessReceived",
+      (guess: App.Models.Guess) => {
+        if (guess.player?.id === this.player.id || guess.status != "correct") {
+          this.guesses.push(guess);
+        }
 
-      setTimeout(() => this.$el.lastElementChild.scrollIntoView(), 20);
-    });
+        setTimeout(() => this.$el.lastElementChild.scrollIntoView(), 20);
+      }
+    );
+  },
+  methods: {
+    __: __,
   },
 });
 </script>

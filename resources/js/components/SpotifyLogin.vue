@@ -1,16 +1,20 @@
 <template>
   <div class="flex h-80">
-    <button class="btn btn-primary m-auto" @click="login">Login</button>
+    <button class="btn btn-primary m-auto" @click="login">
+      {{ __("Login") }}
+    </button>
   </div>
 </template>
 
 <script lang="ts">
+import __ from "../lang";
 import config from "../config";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "SpotifyLogin",
   methods: {
+    __: __,
     login(): void {
       window.location.replace(this.url);
     },
@@ -21,7 +25,7 @@ export default defineComponent({
     },
     params(): URLSearchParams {
       if (!config.spotify.client_id) {
-        throw new Error("Missing configuration value");
+        throw new Error("Missing Spotify client ID");
       }
 
       return new URLSearchParams({

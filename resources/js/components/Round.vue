@@ -1,12 +1,12 @@
 <template>
   <div class="text-center p-3">
-    <h3 v-if="this.round">Runde #{{ round.number }}</h3>
-    <h3 v-else>Warte auf nächste Runde...</h3>
+    <h3 v-if="this.round">{{ __("Round") }} #{{ round.number }}</h3>
+    <h3 v-else>{{ __("Waiting for next round...") }}</h3>
   </div>
 </template>
 
 <script lang="ts">
-import Round from "../models/Round";
+import __ from "../lang";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -17,13 +17,13 @@ export default defineComponent({
       required: true,
     },
   },
-  data(): { round: Round | null } {
+  data(): { round: App.Models.Round | null } {
     return {
       round: null,
     };
   },
-  mounted():void {
-    window.Echo.join(this.channel).listen("RoundStarted", (round: Round) => {
+  mounted(): void {
+    window.Echo.join(this.channel).listen("RoundStarted", (round: App.Models.Round) => {
       this.round = round;
 
       setTimeout(
@@ -31,6 +31,9 @@ export default defineComponent({
         new Date(round.completes_at).getTime() - Date.now()
       );
     });
+  },
+  methods: {
+    __: __,
   },
 });
 </script>
