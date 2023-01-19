@@ -13,7 +13,7 @@ jobs:
       MIX_PUSHER_APP_KEY: ${{ secrets.MIX_PUSHER_APP_KEY }}
       MIX_PUSHER_APP_CLUSTER: ${{ secrets.MIX_PUSHER_APP_CLUSTER }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         token: ${{ secrets.PUSH_TOKEN }}
     - name: Set up Node

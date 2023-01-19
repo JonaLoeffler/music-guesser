@@ -4,7 +4,7 @@ set -e
 echo "Deploying application ..."
 
 # Enter maintenance mode
-(php artisan down) || true
+(docker exec -it which-track-app php artisan down) || true
     # Update codebase
     git fetch origin deploy
     git reset --hard origin/deploy
